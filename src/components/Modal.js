@@ -1,9 +1,10 @@
 import { Portal } from 'react-portal';
 
-export default function Modal({ children, title, className, isOpen }) {
+export default function Modal({ children, title, className, open, onClose }) {
+
   return <Portal>
     {
-      isOpen == true &&
+      open == true &&
       <div className={ ['design-casket__modal', className].join(' ') }>
         <div className="design-casket__modal-inner">
           {
@@ -18,7 +19,10 @@ export default function Modal({ children, title, className, isOpen }) {
           </div>
 
           <div className="design-casket__modal-buttons">
-            <button className="design-casket__button">Close</button>
+            <button className="design-casket__button" onClick={ e => {
+              e.preventDefault();
+              onClose ? onClose(e) : '';
+            } }>Close</button>
           </div>
         </div>
       </div>

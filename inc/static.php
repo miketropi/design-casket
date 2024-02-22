@@ -9,7 +9,9 @@ function dc_enqueue_scripts() {
 
   wp_localize_script('design-casket-js', 'DC_PHP_DATA', [
     'ajax_url' => admin_url('admin-ajax.php'),
-    'settings' => [],
+    'settings' => [
+      'image_collection' => dc_get_image_collection(),
+    ],
     'lang' => []
   ]);
 }

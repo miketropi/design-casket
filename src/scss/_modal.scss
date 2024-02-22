@@ -25,6 +25,17 @@
     box-shadow: 0 0 20px -5px rgb(69 59 85 / 56%);
   }
 
+  &__modal-title {
+
+    h4 {
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
+  }
+
+  &__modal-body {
+    color: #303030;
+  }
+
   &__modal-buttons {
     display: flex;
     justify-content: flex-end;

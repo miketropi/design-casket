@@ -1,0 +1,52 @@
+.design-casket {
+
+  &__edit-image {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .__edit-area {
+      width: 65%;
+    }
+
+    .__edit-tool-area {
+      width: calc(35% - 30px);
+
+      h5 {
+        font-size: 1em;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 0 1em;
+        display: block; 
+      }
+
+      .__icon-tooltip {
+        display: inline-block;
+        line-height: 0;
+
+        svg {
+          width: 16px;
+        }
+      }
+
+      .__select-image {
+
+        ul {
+          margin: 0;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: .5em;
+
+          li.image-item {
+            list-style: none;
+            line-height: 0;
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
