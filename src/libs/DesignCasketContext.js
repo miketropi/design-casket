@@ -11,46 +11,65 @@ const NavViews = [
     __key: '968ccc56-e5b8-4af3-a68f-e65c3cb02fb9',
     name: 'Lid',
     image: `/wp-content/plugins/design-casket/dist${lidIcon}`,
+    maskImage: '/wp-content/plugins/design-casket/images/lid.png',
     classes: 'view-lid',
     classTransformView: 'casket-design-preview-show-lid', 
+    fabricConfig: {
+      scaleToWidth: 600,
+    }
   },
   {
     __key: '65b13379-a8bc-49e1-a7a5-de149038571d',
     name: 'Left Side',
     image: `/wp-content/plugins/design-casket/dist${leftIcon}`,
+    maskImage: '/wp-content/plugins/design-casket/images/520210a3-79e2-4c76-94eb-764bda41f63a.png',
     classes: 'view-left-side',
     classTransformView: 'casket-design-preview-show-left',
+    fabricConfig: {
+      scaleToWidth: 600,
+    }
   },
-  {
+  { 
     __key: '529e804a-e512-49ff-80c7-463f9a6c247c',
     name: 'Right Side',
     image: `/wp-content/plugins/design-casket/dist${rightIcon}`,
+    maskImage: '/wp-content/plugins/design-casket/images/520210a3-79e2-4c76-94eb-764bda41f63a.png',
     classes: 'view-right-side',
     classTransformView: 'casket-design-preview-show-right',
+    fabricConfig: {
+      scaleToWidth: 600,
+    }
   },
   {
     __key: 'bd0346c6-4e04-43bb-b2ca-d5c8222a065d',
     name: 'Head End',
     image: `/wp-content/plugins/design-casket/dist${topIcon}`,
+    maskImage: '/wp-content/plugins/design-casket/images/top.png',
     classes: 'view-head-end',
     classTransformView: 'casket-design-preview-show-top',
+    fabricConfig: { }
   },
   {
     __key: '5518e0b7-7cc3-4157-af66-2b4d8b83f017', 
     name: 'Foot End',
     image: `/wp-content/plugins/design-casket/dist${bottomIcon}`,
+    maskImage: '/wp-content/plugins/design-casket/images/bottom.png',
     classes: 'view-foot-end',
     classTransformView: 'casket-design-preview-show-bottom',
+    fabricConfig: { }
   }
 ];
 
 const DebuggingCasketContext_Provider = ({ children }) => {
-  const [data, setData] = useState(NavViews.map(({__key, name, image}) => {
+  const [data, setData] = useState(NavViews.map(({__key, name, image, maskImage, fabricConfig}) => {
     return {
       __key, 
       name, 
-      maskImage: image,
-      previewImage: '',
+      maskImage,
+      icon: image,
+      previewImage: '', 
+      fabricConfig,
+      save: null,
     }
   }));
   const [editItem, setEditItem] = useState(data[0]);
