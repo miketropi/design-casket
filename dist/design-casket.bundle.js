@@ -158,6 +158,7 @@ function DesignCasketApp() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "design-casket__modal-edit-image",
+      size: 'lg',
       title: editButtonText,
       open: editImageModalOpen,
       onClose: function onClose(e) {
@@ -351,12 +352,13 @@ function Modal(_ref) {
     title = _ref.title,
     className = _ref.className,
     open = _ref.open,
-    onClose = _ref.onClose;
+    onClose = _ref.onClose,
+    size = _ref.size;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_portal__WEBPACK_IMPORTED_MODULE_1__["default"], {
     children: open == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: ['design-casket__modal', className].join(' '),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-        className: "design-casket__modal-inner",
+        className: ['design-casket__modal-inner', "__".concat(size)].join(' '),
         children: [title != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "design-casket__modal-title",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {

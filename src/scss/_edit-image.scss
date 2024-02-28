@@ -6,11 +6,11 @@
     justify-content: space-between;
 
     .__edit-area {
-      width: 65%;
+      width: calc(100% - 260px - 30px);
     }
 
     .__edit-tool-area {
-      width: calc(35% - 30px);
+      width: 260px;
 
       h5 {
         font-size: 1em;

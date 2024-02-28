@@ -35,6 +35,7 @@ export default function DesignCasketApp() {
 
     <Modal 
       className="design-casket__modal-edit-image"
+      size={ 'lg' }
       title={ editButtonText }
       open={ editImageModalOpen }
       onClose={ e => setEditImageModalOpen(false) }>

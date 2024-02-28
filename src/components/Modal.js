@@ -1,12 +1,12 @@
 import { Portal } from 'react-portal';
 
-export default function Modal({ children, title, className, open, onClose }) {
+export default function Modal({ children, title, className, open, onClose, size }) {
 
   return <Portal>
     {
       open == true &&
       <div className={ ['design-casket__modal', className].join(' ') }>
-        <div className="design-casket__modal-inner">
+        <div className={ ['design-casket__modal-inner', `__${ size }`].join(' ') }>
           {
             (title != '') && 
             <div className="design-casket__modal-title">

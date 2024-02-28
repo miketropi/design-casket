@@ -86,7 +86,7 @@
   font-weight: bold;
   font-size: 0.8em !important;
   height: 40px;
-  padding: 0 1em;
+  padding: 0 1em !important;
 }
 .design-casket__button svg {
   width: 22px;
@@ -463,6 +463,9 @@
   margin: 10vh auto;
   box-shadow: 0 0 20px -5px rgba(69, 59, 85, 0.56);
 }
+.design-casket__modal-inner.__lg {
+  width: 1140px;
+}
 .design-casket__modal-title h4 {
   font-family: Arial, Helvetica, sans-serif !important;
 }
@@ -485,10 +488,10 @@
   justify-content: space-between;
 }
 .design-casket__edit-image .__edit-area {
-  width: 65%;
+  width: calc(100% - 260px - 30px);
 }
 .design-casket__edit-image .__edit-tool-area {
-  width: calc(35% - 30px);
+  width: 260px;
 }
 .design-casket__edit-image .__edit-tool-area h5 {
   font-size: 1em;
