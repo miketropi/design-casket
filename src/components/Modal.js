@@ -1,6 +1,7 @@
+import { Fragment } from 'react';
 import { Portal } from 'react-portal';
 
-export default function Modal({ children, title, className, open, onClose, size }) {
+export default function Modal({ children, title, className, open, onClose, size, buttons }) {
 
   return <Portal>
     {
@@ -19,6 +20,10 @@ export default function Modal({ children, title, className, open, onClose, size 
           </div>
 
           <div className="design-casket__modal-buttons">
+            {
+              buttons.length > 0 &&
+              buttons.map((B, _b_index) => <Fragment key={ _b_index }>{ B }</Fragment>)
+            }
             <button className="design-casket__button" onClick={ e => {
               e.preventDefault();
               onClose ? onClose(e) : '';

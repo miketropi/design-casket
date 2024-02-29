@@ -13,6 +13,12 @@ export default function DesignCasketApp() {
     displayOptShowHandles,
     editButtonText,
     editImageModalOpen, setEditImageModalOpen } = useDesignCasketContext();
+  
+  const ButtonSaveEdit = () => {
+    return <button className="design-casket__button button-secondary">
+      Save Design
+    </button>
+  }
 
   // casket-design-show-handles
   return <div className="design-casket design-casket-container">
@@ -38,7 +44,10 @@ export default function DesignCasketApp() {
       size={ 'lg' }
       title={ editButtonText }
       open={ editImageModalOpen }
-      onClose={ e => setEditImageModalOpen(false) }>
+      onClose={ e => setEditImageModalOpen(false) }
+      buttons={ [
+        <ButtonSaveEdit />
+      ] }>
       <EditImage />
     </Modal>
   </div>

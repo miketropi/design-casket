@@ -490,6 +490,9 @@
 .design-casket__edit-image .__edit-area {
   width: calc(100% - 260px - 30px);
 }
+.design-casket__edit-image .__edit-area > div {
+  background: #fffcf3;
+}
 .design-casket__edit-image .__edit-tool-area {
   width: 260px;
 }

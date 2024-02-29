@@ -7,6 +7,10 @@
 
     .__edit-area {
       width: calc(100% - 260px - 30px);
+
+      > div {
+        background: #fffcf3;
+      }
     }
 
     .__edit-tool-area {
