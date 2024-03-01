@@ -19,7 +19,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function Casket3D() {
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__.useDesignCasketContext)(),
-    currentView = _useDesignCasketConte.currentView;
+    currentView = _useDesignCasketConte.currentView,
+    data = _useDesignCasketConte.data;
+  var getDesignImageByKey = function getDesignImageByKey(key, imageDefault) {
+    var item = data.find(function (d) {
+      return d.__key == key;
+    });
+    return item.designImage != '' ? item.designImage : imageDefault;
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "design-casket__design-casket-3d",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -31,7 +38,7 @@ function Casket3D() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "casket-design-preview-face casket-design-preview-lid",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              src: "/wp-content/plugins/design-casket/images/lid.png",
+              src: getDesignImageByKey('968ccc56-e5b8-4af3-a68f-e65c3cb02fb9', "/wp-content/plugins/design-casket/images/lid.png"),
               className: "casket-design-face"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -138,9 +145,14 @@ function DesignCasketApp() {
     displayOptShowHandles = _useDesignCasketConte.displayOptShowHandles,
     editButtonText = _useDesignCasketConte.editButtonText,
     editImageModalOpen = _useDesignCasketConte.editImageModalOpen,
-    setEditImageModalOpen = _useDesignCasketConte.setEditImageModalOpen;
+    setEditImageModalOpen = _useDesignCasketConte.setEditImageModalOpen,
+    onApplyDesign = _useDesignCasketConte.onApplyDesign;
   var ButtonSaveEdit = function ButtonSaveEdit() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+      onClick: function onClick(e) {
+        e.preventDefault();
+        onApplyDesign();
+      },
       className: "design-casket__button button-secondary",
       children: "Save Design"
     });
@@ -159,8 +171,10 @@ function DesignCasketApp() {
       onClose: function onClose(e) {
         return setFaqsModalOpen(false);
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-        children: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        dangerouslySetInnerHTML: {
+          __html: DC_PHP_DATA.settings.instructions_content
+        }
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "design-casket__modal-edit-image",
@@ -305,8 +319,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 function EditImage() {
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_1__.useDesignCasketContext)(),
-    data = _useDesignCasketConte.data,
-    setData = _useDesignCasketConte.setData,
     editItem = _useDesignCasketConte.editItem,
     setEditItem = _useDesignCasketConte.setEditItem,
     image_collection = _useDesignCasketConte.image_collection;
@@ -315,28 +327,41 @@ function EditImage() {
   var helpIcon = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7.92 9.234v.102a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-1.29.998-1.979 2.34-1.979 1.308 0 2.168.689 2.168 1.67 0 .928-.482 1.359-1.686 1.91l-.344.154C11.379 11.54 11 12.21 11 13.381v.119a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-.516.138-.723.55-.912l.345-.155c1.445-.654 2.529-1.514 2.529-3.39v-.103c0-1.978-1.72-3.441-4.164-3.441-2.478 0-4.336 1.428-4.336 3.734zm2.58 7.757c0 .867.659 1.509 1.491 1.509.85 0 1.509-.642 1.509-1.509 0-.867-.659-1.491-1.509-1.491-.832 0-1.491.624-1.491 1.491z\" fill=\"#000000\"/></svg>";
   var canvasRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var fabricRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var fabricMaskObject = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var imageObject = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fabricRef.current = initCanvas();
+    // fabricRef.current.setZoom(.5)
 
     // load mask image 
     loadMaskImage();
     fabricRef.current.on("object:modified", function (e) {
-      // alert("object modified");
       var jsonString = JSON.stringify(fabricRef.current);
-      // copyToClipboard(jsonString);
-      setEditItem(_objectSpread(_objectSpread({}, editItem), {}, {
-        save: jsonString
-      }));
-      console.log(jsonString);
+      var __designImage = fabricRef.current.toDataURL({
+        left: fabricMaskObject.current.left,
+        top: fabricMaskObject.current.top,
+        width: fabricMaskObject.current.getScaledWidth(),
+        height: fabricMaskObject.current.getScaledHeight(),
+        multiplier: 1.5
+      });
+      setEditItem(function (prevState) {
+        return _objectSpread(_objectSpread({}, prevState), {}, {
+          save: jsonString,
+          designImage: __designImage
+        });
+      });
     });
     return function () {
       fabricRef.current.dispose();
       fabricRef.current = null;
     };
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    editItem.previewImage ? onRenderImagePreview(editItem.previewImage) : '';
+  }, [editItem.previewImage]);
   var initCanvas = function initCanvas() {
     return new fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Canvas(canvasRef.current, {
-      height: 500,
+      height: 550,
       width: 786,
       // backgroundColor: '#FAFAFA',
       selection: false,
@@ -344,9 +369,8 @@ function EditImage() {
     });
   };
   var loadMaskImage = function loadMaskImage() {
-    fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(editItem.maskImage, function (img) {
-      // img.selectable = false;
-
+    fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(maskImage, function (img) {
+      img.selectable = false;
       if (fabricConfig.scaleToWidth) {
         img.scaleToWidth(fabricConfig.scaleToWidth);
       }
@@ -355,29 +379,41 @@ function EditImage() {
       // Object center
       fabricRef.current.centerObject(img);
       fabricRef.current.renderAll();
+      fabricMaskObject.current = img;
+      // console.log(img, img.getScaledWidth());
     });
   };
-  var onAddImagePreview = function onAddImagePreview(imageUrl) {
+  var onRenderImagePreview = function onRenderImagePreview(imageUrl) {
+    if (imageObject.current) {
+      fabricRef.current.remove(imageObject.current);
+    }
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(imageUrl, function (img) {
       // img.selectable = false;
+      imageObject.current = img;
+      img.scaleToWidth(fabricMaskObject.current.getScaledWidth());
       img.globalCompositeOperation = 'source-atop';
       fabricRef.current.add(img);
+      fabricRef.current.centerObject(img); // Object center
+      fabricRef.current.setActiveObject(img); // Active object
 
-      // Object center
-      fabricRef.current.centerObject(img);
       fabricRef.current.renderAll();
 
       // trigger object:modified
       fabricRef.current.fire('object:modified');
     });
   };
+  var onSetImagePreview = function onSetImagePreview(imageUrl) {
+    setEditItem(_objectSpread(_objectSpread({}, editItem), {}, {
+      previewImage: imageUrl
+    }));
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "design-casket__edit-image",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "__edit-area",
-      children: [JSON.stringify(editItem), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("canvas", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("canvas", {
         ref: canvasRef
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "__edit-tool-area",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -399,7 +435,7 @@ function EditImage() {
               className: "image-item",
               onClick: function onClick(e) {
                 e.preventDefault();
-                onAddImagePreview(item.image);
+                onSetImagePreview(item.image);
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
@@ -459,7 +495,7 @@ function Modal(_ref) {
           children: children
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "design-casket__modal-buttons",
-          children: [buttons.length > 0 && buttons.map(function (B, _b_index) {
+          children: [buttons && buttons.length > 0 && buttons.map(function (B, _b_index) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
               children: B
             }, _b_index);
@@ -562,7 +598,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var DesignCasketContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)("");
-var NavViews = [{
+var CasketLayerConfig = [{
   __key: '968ccc56-e5b8-4af3-a68f-e65c3cb02fb9',
   name: 'Lid',
   image: "/wp-content/plugins/design-casket/dist".concat(_images_lid_icon_png__WEBPACK_IMPORTED_MODULE_1__["default"]),
@@ -611,7 +647,7 @@ var NavViews = [{
 }];
 var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_ref) {
   var children = _ref.children;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(NavViews.map(function (_ref2) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(CasketLayerConfig.map(function (_ref2) {
       var __key = _ref2.__key,
         name = _ref2.name,
         image = _ref2.image,
@@ -623,6 +659,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
         maskImage: maskImage,
         icon: image,
         previewImage: '',
+        designImage: '',
         fabricConfig: fabricConfig,
         save: null
       };
@@ -667,7 +704,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   '529e804a-e512-49ff-80c7-463f9a6c247c' // right side key
   ];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var found = NavViews.find(function (n) {
+    var found = CasketLayerConfig.find(function (n) {
       return n.__key === navActive;
     });
     setCurrentView(found.classTransformView);
@@ -684,10 +721,19 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   var onChangeNavActive = function onChangeNavActive(key) {
     setNavActive(key);
   };
+  var onApplyDesign = function onApplyDesign() {
+    var __data = _toConsumableArray(data);
+    var found = data.findIndex(function (n) {
+      return n.__key == editItem.__key;
+    });
+    __data[found] = editItem;
+    setData(__data);
+    setEditImageModalOpen(false); // close modal edit
+  };
   var value = {
     version: '1.0.1',
     image_collection: DC_PHP_DATA.settings.image_collection,
-    NavViews: NavViews,
+    NavViews: CasketLayerConfig,
     currentView: currentView,
     navActive: navActive,
     editButtonText: editButtonText,
@@ -703,7 +749,8 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
     data: data,
     setData: setData,
     editItem: editItem,
-    setEditItem: setEditItem
+    setEditItem: setEditItem,
+    onApplyDesign: onApplyDesign
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(DesignCasketContext.Provider, {
     value: value,

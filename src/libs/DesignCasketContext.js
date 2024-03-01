@@ -6,7 +6,7 @@ import topIcon from '../../images/top_icon.png';
 import bottomIcon from '../../images/bottom_icon.png';
 
 const DesignCasketContext = createContext("");
-const NavViews = [
+const CasketLayerConfig = [
   {
     __key: '968ccc56-e5b8-4af3-a68f-e65c3cb02fb9',
     name: 'Lid',
@@ -61,13 +61,14 @@ const NavViews = [
 ];
 
 const DebuggingCasketContext_Provider = ({ children }) => {
-  const [data, setData] = useState(NavViews.map(({__key, name, image, maskImage, fabricConfig}) => {
+  const [data, setData] = useState(CasketLayerConfig.map(({__key, name, image, maskImage, fabricConfig}) => {
     return {
       __key, 
       name, 
       maskImage,
       icon: image,
       previewImage: '', 
+      designImage: '',
       fabricConfig,
       save: null,
     }
@@ -87,7 +88,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   ];
 
   useEffect(() => {
-    const found = NavViews.find(n => n.__key === navActive);
+    const found = CasketLayerConfig.find(n => n.__key === navActive);
     setCurrentView(found.classTransformView);
     setEditButtonText(`Edit ${ found.name } Image`)
 
@@ -104,10 +105,19 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     setNavActive(key);
   }
 
+  const onApplyDesign = () => {
+    const __data = [...data];
+    const found = data.findIndex(n => n.__key == editItem.__key);
+    __data[found] = editItem;
+
+    setData(__data);
+    setEditImageModalOpen(false); // close modal edit
+  }
+
   const value = {
     version: '1.0.1',
     image_collection: DC_PHP_DATA.settings.image_collection,
-    NavViews,
+    NavViews: CasketLayerConfig,
     currentView,
     navActive,
     editButtonText,
@@ -119,6 +129,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     editImageModalOpen, setEditImageModalOpen,
     data, setData,
     editItem, setEditItem,
+    onApplyDesign,
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }

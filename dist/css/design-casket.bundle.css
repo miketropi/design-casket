@@ -519,6 +519,7 @@
 .design-casket__edit-image .__edit-tool-area .__select-image ul li.image-item {
   list-style: none;
   line-height: 0;
+  cursor: pointer;
 }
 .design-casket__edit-image .__edit-tool-area .__select-image ul li.image-item img {
   width: 100%;

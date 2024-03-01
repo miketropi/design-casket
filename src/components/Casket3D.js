@@ -1,14 +1,23 @@
 import { useDesignCasketContext } from "../libs/DesignCasketContext";
 
 export default function Casket3D() {
-  const { currentView } = useDesignCasketContext();
+  const { currentView, data } = useDesignCasketContext();
+
+  const getDesignImageByKey = (key, imageDefault) => {
+    const item = data.find(d => {
+      return d.__key == key;
+    });
+
+    return (item.designImage != '' ? item.designImage : imageDefault);
+  }
 
   return <div className='design-casket__design-casket-3d'>
+    {/* { JSON.stringify(data) } */}
     <div className="casket-design-preview">
       <div className="casket-design-preview-scene">
         <div className={ ['casket-design-preview-box', currentView].join(' ') }>
           <div className="casket-design-preview-face casket-design-preview-lid">
-            <img src="/wp-content/plugins/design-casket/images/lid.png" className="casket-design-face" />
+            <img src={ getDesignImageByKey('968ccc56-e5b8-4af3-a68f-e65c3cb02fb9', "/wp-content/plugins/design-casket/images/lid.png") } className="casket-design-face" />
           </div>
           <div className="casket-design-preview-face casket-design-preview-underneath">
             <img src="/wp-content/plugins/design-casket/images/underneath-shadow2.png" className="casket-design-face" />

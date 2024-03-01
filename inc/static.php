@@ -11,6 +11,7 @@ function dc_enqueue_scripts() {
     'ajax_url' => admin_url('admin-ajax.php'),
     'settings' => [
       'image_collection' => dc_get_image_collection(),
+      'instructions_content' => get_field('instructions_content', 'option'),
     ],
     'lang' => []
   ]);
