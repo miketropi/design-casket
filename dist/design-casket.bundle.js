@@ -12,93 +12,148 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Casket3D)
 /* harmony export */ });
-/* harmony import */ var _libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/DesignCasketContext */ "./src/libs/DesignCasketContext.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../libs/DesignCasketContext */ "./src/libs/DesignCasketContext.js");
+/* harmony import */ var fabric__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! fabric */ "./node_modules/fabric/dist/fabric.js");
+/* harmony import */ var fabric__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(fabric__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
 
 
 
 function Casket3D() {
-  var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__.useDesignCasketContext)(),
+  var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_1__.useDesignCasketContext)(),
     currentView = _useDesignCasketConte.currentView,
-    data = _useDesignCasketConte.data;
+    data = _useDesignCasketConte.data,
+    setData = _useDesignCasketConte.setData;
+  var canvasCropRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var fabricCropRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    canvasCropRef.current = document.createElement("canvas");
+    fabricCropRef.current = new fabric__WEBPACK_IMPORTED_MODULE_2__.fabric.Canvas(canvasCropRef.current, {
+      selection: false,
+      renderOnAddRemove: true
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (data[1].previewImage == '') return;
+    var __data = _toConsumableArray(data);
+    var maskWidth = 848,
+      maskHeight = 129;
+    fabricCropRef.current.setDimensions({
+      width: maskWidth,
+      height: maskHeight
+    });
+    fabric__WEBPACK_IMPORTED_MODULE_2__.fabric.Image.fromURL(data[1].designImage, function (img) {
+      img.scaleToWidth(maskWidth);
+      fabricCropRef.current.add(img);
+      fabricCropRef.current.renderAll();
+      __data[1].left1Img = fabricCropRef.current.toDataURL({
+        width: 630,
+        height: 129,
+        top: 0,
+        left: 218
+      });
+      __data[1].left2Img = fabricCropRef.current.toDataURL({
+        width: 218,
+        height: 129,
+        top: 0,
+        left: 0
+      });
+      setData(__data);
+    });
+  }, [data[1].designImage]);
   var getDesignImageByKey = function getDesignImageByKey(key, imageDefault) {
+    var fieldName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'designImage';
     var item = data.find(function (d) {
       return d.__key == key;
     });
-    return item.designImage != '' ? item.designImage : imageDefault;
+    if (!item[fieldName]) return imageDefault;
+    return item[fieldName] != '' ? item[fieldName] : imageDefault;
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  var __getDesignImageByKey = function __getDesignImageByKey(key, imageDefault) {
+    return imageDefault;
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "design-casket__design-casket-3d",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "casket-design-preview",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "casket-design-preview-scene",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: ['casket-design-preview-box', currentView].join(' '),
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "casket-design-preview-face casket-design-preview-lid",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: getDesignImageByKey('968ccc56-e5b8-4af3-a68f-e65c3cb02fb9', "/wp-content/plugins/design-casket/images/lid.png"),
               className: "casket-design-face"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "casket-design-preview-face casket-design-preview-underneath",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/underneath-shadow2.png",
               className: "casket-design-face"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "casket-design-preview-face casket-design-preview-left-1",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              src: "/wp-content/plugins/design-casket/images/left-1.png",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: getDesignImageByKey('65b13379-a8bc-49e1-a7a5-de149038571d', '/wp-content/plugins/design-casket/images/left-1.png', 'left1Img'),
               className: "casket-design-face"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-1"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-2"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "casket-design-preview-face casket-design-preview-left-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              src: "/wp-content/plugins/design-casket/images/left-2.png",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: getDesignImageByKey('65b13379-a8bc-49e1-a7a5-de149038571d', '/wp-content/plugins/design-casket/images/left-2.png', 'left2Img'),
               className: "casket-design-face"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-1"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "casket-design-preview-face casket-design-preview-right-1",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/right-1.png",
               className: "casket-design-face"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-1"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-2"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "casket-design-preview-face casket-design-preview-right-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/right-2.png",
               className: "casket-design-face"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
               src: "/wp-content/plugins/design-casket/images/caskethandle.png",
               className: "casket-design-handle-1"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "casket-design-preview-face casket-design-preview-top",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              src: "/wp-content/plugins/design-casket/images/top.png",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: getDesignImageByKey('bd0346c6-4e04-43bb-b2ca-d5c8222a065d', '/wp-content/plugins/design-casket/images/top.png'),
               className: "casket-design-face"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "casket-design-preview-face casket-design-preview-bottom",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              src: "/wp-content/plugins/design-casket/images/bottom.png",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: getDesignImageByKey('5518e0b7-7cc3-4157-af66-2b4d8b83f017', '/wp-content/plugins/design-casket/images/bottom.png'),
               className: "casket-design-face"
             })
           })]
@@ -311,6 +366,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -318,6 +379,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 function EditImage() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    ready = _useState2[0],
+    setReady = _useState2[1];
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_1__.useDesignCasketContext)(),
     editItem = _useDesignCasketConte.editItem,
     setEditItem = _useDesignCasketConte.setEditItem,
@@ -336,7 +401,8 @@ function EditImage() {
     // load mask image 
     loadMaskImage();
     fabricRef.current.on("object:modified", function (e) {
-      var jsonString = JSON.stringify(fabricRef.current);
+      var jsonString = fabricRef.current.toJSON(['__LABEL']); // JSON.stringify(fabricRef.current);
+
       var __designImage = fabricRef.current.toDataURL({
         left: fabricMaskObject.current.left,
         top: fabricMaskObject.current.top,
@@ -354,11 +420,16 @@ function EditImage() {
     return function () {
       fabricRef.current.dispose();
       fabricRef.current = null;
+      fabricMaskObject.current = null;
+      imageObject.current = null;
+      setReady(false);
     };
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    editItem.previewImage ? onRenderImagePreview(editItem.previewImage) : '';
-  }, [editItem.previewImage]);
+    if (ready) {
+      editItem.previewImage ? onRenderImagePreview(editItem.previewImage) : '';
+    }
+  }, [ready, editItem.previewImage]);
   var initCanvas = function initCanvas() {
     return new fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Canvas(canvasRef.current, {
       height: 550,
@@ -370,6 +441,8 @@ function EditImage() {
   };
   var loadMaskImage = function loadMaskImage() {
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(maskImage, function (img) {
+      img.set('__LABEL', 'MASK_IMAGE');
+      fabricMaskObject.current = img;
       img.selectable = false;
       if (fabricConfig.scaleToWidth) {
         img.scaleToWidth(fabricConfig.scaleToWidth);
@@ -379,16 +452,20 @@ function EditImage() {
       // Object center
       fabricRef.current.centerObject(img);
       fabricRef.current.renderAll();
-      fabricMaskObject.current = img;
+
       // console.log(img, img.getScaledWidth());
+      setReady(true);
     });
   };
   var onRenderImagePreview = function onRenderImagePreview(imageUrl) {
+    // if(fabricMaskObject.current == null) return;
+
     if (imageObject.current) {
       fabricRef.current.remove(imageObject.current);
     }
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(imageUrl, function (img) {
       // img.selectable = false;
+      img.set('__LABEL', 'PREVIEW_IMAGE');
       imageObject.current = img;
       img.scaleToWidth(fabricMaskObject.current.getScaledWidth());
       img.globalCompositeOperation = 'source-atop';
