@@ -5,10 +5,12 @@
 
 function dc_enqueue_scripts() {
   wp_enqueue_style('design-casket-css', DC_URI . '/dist/css/design-casket.bundle.css', false, DC_VERSION);
+  wp_enqueue_script('design-casket-manifest-js', DC_URI . '/dist/manifest.js', false, DC_VERSION, true);
+  wp_enqueue_script('design-casket-vendor-js', DC_URI . '/dist/design-casket-vendor.js', false, DC_VERSION, true);
   wp_enqueue_script('design-casket-js', DC_URI . '/dist/design-casket.bundle.js', ['jquery'], DC_VERSION, true);
 
   wp_localize_script('design-casket-js', 'DC_PHP_DATA', [
-    'ajax_url' => admin_url('admin-ajax.php'),
+    'ajax_url' => admin_url('admin-ajax.php'), 
     'settings' => [
       'image_collection' => dc_get_image_collection(),
       'instructions_content' => get_field('instructions_content', 'option'),

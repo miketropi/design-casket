@@ -1,4 +1,6 @@
 {
     "/design-casket.bundle.js": "/design-casket.bundle.js",
+    "/manifest.js": "/manifest.js",
+    "/design-casket-vendor.js": "/design-casket-vendor.js",
     "/css/design-casket.bundle.css": "/css/design-casket.bundle.css"
 }

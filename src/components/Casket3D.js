@@ -36,14 +36,44 @@ export default function Casket3D() {
 
       __data[1].left2Img = fabricCropRef.current.toDataURL({
         width: 218, 
+        height: 129,  
+        top: 0, 
+        left: 0,  
+      });
+
+      setData(__data);
+    })
+  }, [data[1].designImage]); 
+
+  useEffect(() => {
+    if(data[2].previewImage == '') return;
+
+    const __data = [...data];
+    const [maskWidth, maskHeight] = [848, 129];
+    fabricCropRef.current.setDimensions({ width: maskWidth, height: maskHeight });
+      
+    fabric.Image.fromURL(data[2].designImage, img => {
+      img.scaleToWidth(maskWidth);
+      fabricCropRef.current.add(img); 
+      fabricCropRef.current.renderAll();
+
+      __data[2].right1Img = fabricCropRef.current.toDataURL({
+        width: 630, 
         height: 129, 
         top: 0, 
         left: 0, 
       });
 
+      __data[2].right2Img = fabricCropRef.current.toDataURL({
+        width: 218,  
+        height: 129, 
+        top: 0, 
+        left: 630, 
+      });
+
       setData(__data);
     })
-  }, [data[1].designImage]);
+  }, [data[2].designImage]);
 
   const getDesignImageByKey = (key, imageDefault, fieldName = 'designImage') => {
     const item = data.find(d => {
@@ -78,12 +108,12 @@ export default function Casket3D() {
             <img src="/wp-content/plugins/design-casket/images/caskethandle.png" className="casket-design-handle-1" />
           </div>
           <div className="casket-design-preview-face casket-design-preview-right-1">
-            <img src="/wp-content/plugins/design-casket/images/right-1.png" className="casket-design-face" />
+            <img src={ getDesignImageByKey('529e804a-e512-49ff-80c7-463f9a6c247c', '/wp-content/plugins/design-casket/images/right-1.png', 'right1Img') } className="casket-design-face" />
             <img src="/wp-content/plugins/design-casket/images/caskethandle.png" className="casket-design-handle-1" />
             <img src="/wp-content/plugins/design-casket/images/caskethandle.png" className="casket-design-handle-2" />
           </div>
           <div className="casket-design-preview-face casket-design-preview-right-2">
-            <img src="/wp-content/plugins/design-casket/images/right-2.png" className="casket-design-face" />
+            <img src={ getDesignImageByKey('529e804a-e512-49ff-80c7-463f9a6c247c', '/wp-content/plugins/design-casket/images/right-2.png', 'right2Img') } className="casket-design-face" />
             <img src="/wp-content/plugins/design-casket/images/caskethandle.png" className="casket-design-handle-1" />
           </div>
           <div className="casket-design-preview-face casket-design-preview-top">

@@ -66,7 +66,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
       __key, 
       name, 
       maskImage,
-      icon: image,
+      icon: image, 
       previewImage: '', 
       designImage: '',
       fabricConfig,

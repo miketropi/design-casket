@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+mix.extract(['react', 'react-dom', 'fabric'], 'design-casket-vendor.js');
+
 mix
   .js('./src/main.js', 'dist/design-casket.bundle.js')
   .react()
