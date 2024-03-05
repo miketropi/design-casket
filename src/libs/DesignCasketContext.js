@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { saveDesign, getDesignJsonUrl } from "./api";
 import lidIcon from '../../images/lid_icon.png';
 import leftIcon from '../../images/left_icon.png';
 import rightIcon from '../../images/right_icon.png';
@@ -61,6 +62,7 @@ const CasketLayerConfig = [
 ];
 
 const DebuggingCasketContext_Provider = ({ children }) => {
+  const [PID, setPID] = useState('');
   const [data, setData] = useState(CasketLayerConfig.map(({__key, name, image, maskImage, fabricConfig}) => {
     return {
       __key, 
@@ -86,6 +88,51 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     '65b13379-a8bc-49e1-a7a5-de149038571d',   // left side key
     '529e804a-e512-49ff-80c7-463f9a6c247c'    // right side key
   ];
+
+  const __getDesignJsonUrl = async (PID) => {
+    const { success, design_data_url } = await getDesignJsonUrl(PID);
+    if(!design_data_url) return;
+
+    jQuery.get(design_data_url, designData => {
+      
+      // Fix json data
+      let _designData = designData.map(i => {
+        i.save.objects = [...i.save.objects].map(oItem => {
+          oItem.crossOrigin = null;
+          oItem.filters = [];
+          oItem.flipX = false;
+          oItem.flipY = false;
+          oItem.shadow = null;
+          oItem.strokeUniform = false;
+          return oItem;
+        });
+        return i;
+      })
+
+      setData(_designData);
+      setEditItem(_designData[0]);
+    })
+  }
+
+  const __setPID = () => {
+    if(!window.location.hash) return;
+    let [tag, PID] = window.location.hash.split('_');
+    if('#designcasket' != tag) return;
+
+    setPID(PID);
+  }
+
+  useEffect(() => {
+    __setPID();
+
+    window.addEventListener("hashchange", () => {
+      __setPID();
+    }, false );
+  }, []);
+
+  useEffect(() => {
+    __getDesignJsonUrl(PID);
+  }, [PID])
 
   useEffect(() => {
     const found = CasketLayerConfig.find(n => n.__key === navActive);
@@ -114,6 +161,11 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     setEditImageModalOpen(false); // close modal edit
   }
 
+  const onSaveDesign = async () => {
+    const res = await saveDesign(data, PID);
+    setPID(res.PID);
+  }
+
   const value = {
     version: '1.0.1',
     image_collection: DC_PHP_DATA.settings.image_collection,
@@ -130,6 +182,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     data, setData,
     editItem, setEditItem,
     onApplyDesign,
+    onSaveDesign,
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }

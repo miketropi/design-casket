@@ -17,6 +17,7 @@
   define('DC_VERSION', rand(0,999999999));
   define('DC_URI', plugin_dir_url(__FILE__));
   define('DC_DIR', plugin_dir_path(__FILE__));
+  define('DC_DESIGN_CASKET_JSON_FOLDER', 'DESIGN_CASKET_JSON');
 }
 
 {
@@ -29,6 +30,11 @@
   require(DC_DIR . '/inc/ajax.php');
   require(DC_DIR . '/inc/template-tags.php');
   require(DC_DIR . '/inc/shortcode.php');
+
+  /**
+   * Admin
+   */
+  require(DC_DIR . '/inc/admin/cpt-register.php');
 }
 
 {
