@@ -162,7 +162,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   }
 
   const onSaveDesign = async () => {
-    const res = await saveDesign(data, PID);
+    const res = await saveDesign(data, '');
     setPID(res.PID);
   }
 
