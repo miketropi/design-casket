@@ -91,11 +91,11 @@
   }
 
   &__button {
-    background: $accent-color;
-    color: white;
+    background: $accent-color !important;
+    color: white !important;
     border: none !important;
-    border-radius: 0;
-    display: flex;
+    border-radius: 0 !important;
+    display: flex !important;
     align-items: center;
     gap: .5em;
     font-weight: bold;
@@ -110,22 +110,22 @@
     &:hover,
     &:focus {
       opacity: .8;
-      background: $accent-color;
+      background: $accent-color !important;
     }
 
     &.button-secondary {
-      background: $secondary-color;
+      background: $secondary-color !important;
 
       &:hover {
-        background: $secondary-color;
+        background: $secondary-color !important;
       }
     }
 
     &.button-gray {
-      background: gray;
+      background: gray !important;
 
       &:hover {
-        background: gray;
+        background: gray !important;
       }
     }
   }
@@ -523,4 +523,44 @@ $angle-2: 17deg;
 .casket-design-upload-message {
   margin-left: 1rem;
   font-size: 1rem;
+}
+
+.dc-form {
+
+  input[type=text], 
+  input[type=tel], 
+  input[type=number], 
+  input[type=email] {
+    border-radius: 1px;
+    border: solid 1px #eee;
+    background: white;
+    padding: .5em;
+  } 
+
+  &__group-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5em;
+
+    .__label {
+      display: block;
+      padding: .5em 0;
+      font-size: .9em;
+      font-weight: bold;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em;
+    margin-top: 2em;
+  }
+
+  &__address-group-fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em; 
+  }
 }

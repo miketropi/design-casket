@@ -9,7 +9,8 @@ export default function DesignToolBar() {
     displayOptShowHandles,
     showHandles, setShowHandles,
     setEditImageModalOpen,
-    onSaveDesign } = useDesignCasketContext();
+    onSaveDesign, 
+    submissionModalOpen, setSubmissionModalOpen } = useDesignCasketContext();
   
   return <div className="design-casket__tool-bar">
     {
@@ -44,8 +45,10 @@ export default function DesignToolBar() {
     <div className="tool-box __submit-design">
       <button className="design-casket__button button-secondary" onClick={ e => {
         e.preventDefault();
-        const __DESIGN_CASKET = localStorage.getItem("__DESIGN_CASKET");
-        setData(JSON.parse(__DESIGN_CASKET));
+        // const __DESIGN_CASKET = localStorage.getItem("__DESIGN_CASKET");
+        // setData(JSON.parse(__DESIGN_CASKET));
+
+        setSubmissionModalOpen(true) 
       } }>Submit Design</button>
     </div>
 

@@ -209,7 +209,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DesignToolBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DesignToolBar */ "./src/components/DesignToolBar.js");
 /* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Modal */ "./src/components/Modal.js");
 /* harmony import */ var _EditImage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EditImage */ "./src/components/EditImage.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _SubmissionForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SubmissionForm */ "./src/components/SubmissionForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -228,9 +230,11 @@ function DesignCasketApp() {
     editButtonText = _useDesignCasketConte.editButtonText,
     editImageModalOpen = _useDesignCasketConte.editImageModalOpen,
     setEditImageModalOpen = _useDesignCasketConte.setEditImageModalOpen,
-    onApplyDesign = _useDesignCasketConte.onApplyDesign;
+    onApplyDesign = _useDesignCasketConte.onApplyDesign,
+    submissionModalOpen = _useDesignCasketConte.submissionModalOpen,
+    setSubmissionModalOpen = _useDesignCasketConte.setSubmissionModalOpen;
   var ButtonSaveEdit = function ButtonSaveEdit() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
       onClick: function onClick(e) {
         e.preventDefault();
         onApplyDesign();
@@ -239,26 +243,37 @@ function DesignCasketApp() {
       children: "Save Design"
     });
   };
+  var ButtonSubmissionFormCloseModal = function ButtonSubmissionFormCloseModal() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+      className: "design-casket__button",
+      type: "button",
+      onClick: function onClick(e) {
+        e.preventDefault();
+        setSubmissionModalOpen(false);
+      },
+      children: "Close"
+    });
+  };
 
   // casket-design-show-handles
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "design-casket design-casket-container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_DesignToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_DesignToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: ['design-casket__viewer-area', showHandles == true && displayOptShowHandles == true ? 'casket-design-show-handles' : ''].join(' '),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_NavViewer__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Casket3D__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_NavViewer__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Casket3D__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "design-casket__modal-faqs-entry",
       title: "Casket Design Instructions",
       open: faqsModalOpen,
       onClose: function onClose(e) {
         return setFaqsModalOpen(false);
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         dangerouslySetInnerHTML: {
           __html: DC_PHP_DATA.settings.instructions_content
         }
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "design-casket__modal-edit-image",
       size: 'lg',
       title: editButtonText,
@@ -266,8 +281,17 @@ function DesignCasketApp() {
       onClose: function onClose(e) {
         return setEditImageModalOpen(false);
       },
-      buttons: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(ButtonSaveEdit, {})],
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_EditImage__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+      buttons: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ButtonSaveEdit, {})],
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_EditImage__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "design-casket__modal-submission-form",
+      title: "Submit Your Design",
+      desc: "Please complete and submit the form below. A member of our team will be in touch to discuss your specific requirements.",
+      open: submissionModalOpen,
+      buttonOff: true,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_SubmissionForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        buttons: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ButtonSubmissionFormCloseModal, {})]
+      })
     })]
   });
 }
@@ -302,7 +326,9 @@ function DesignToolBar() {
     showHandles = _useDesignCasketConte.showHandles,
     setShowHandles = _useDesignCasketConte.setShowHandles,
     setEditImageModalOpen = _useDesignCasketConte.setEditImageModalOpen,
-    onSaveDesign = _useDesignCasketConte.onSaveDesign;
+    onSaveDesign = _useDesignCasketConte.onSaveDesign,
+    submissionModalOpen = _useDesignCasketConte.submissionModalOpen,
+    setSubmissionModalOpen = _useDesignCasketConte.setSubmissionModalOpen;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "design-casket__tool-bar",
     children: [displayOptShowHandles == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -355,8 +381,10 @@ function DesignToolBar() {
         className: "design-casket__button button-secondary",
         onClick: function onClick(e) {
           e.preventDefault();
-          var __DESIGN_CASKET = localStorage.getItem("__DESIGN_CASKET");
-          setData(JSON.parse(__DESIGN_CASKET));
+          // const __DESIGN_CASKET = localStorage.getItem("__DESIGN_CASKET");
+          // setData(JSON.parse(__DESIGN_CASKET));
+
+          setSubmissionModalOpen(true);
         },
         children: "Submit Design"
       })
@@ -540,7 +568,7 @@ function EditImage() {
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(imageUrl, function (img) {
       // img.selectable = false;
       var maskWidth = fabricMaskObject.current.getScaledWidth();
-      img.set('__LABEL', 'PREVIEW_IMAGE');
+      img.set('__LABEL', 'PREVIEW_IMAGE'); // set tag
       img.set('__MASKWIDTH', maskWidth);
       imageObject.current = img;
       img.scaleToWidth(maskWidth);
@@ -629,25 +657,33 @@ __webpack_require__.r(__webpack_exports__);
 function Modal(_ref) {
   var children = _ref.children,
     title = _ref.title,
+    desc = _ref.desc,
     className = _ref.className,
     open = _ref.open,
     onClose = _ref.onClose,
     size = _ref.size,
-    buttons = _ref.buttons;
+    buttons = _ref.buttons,
+    _ref$buttonOff = _ref.buttonOff,
+    buttonOff = _ref$buttonOff === void 0 ? false : _ref$buttonOff;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_portal__WEBPACK_IMPORTED_MODULE_2__["default"], {
     children: open == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: ['design-casket__modal', className].join(' '),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: ['design-casket__modal-inner', "__".concat(size)].join(' '),
-        children: [title != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: [title != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "design-casket__modal-title",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
             children: title
-          })
+          }), desc && desc != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "design-casket__modal-desc",
+            dangerouslySetInnerHTML: {
+              __html: desc
+            }
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "design-casket__modal-body",
           children: children
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), buttonOff !== true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "design-casket__modal-buttons",
           children: [buttons && buttons.length > 0 && buttons.map(function (B, _b_index) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -708,6 +744,219 @@ function NavViewer() {
           })]
         }, n.__key);
       })
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./src/components/SubmissionForm.js":
+/*!******************************************!*\
+  !*** ./src/components/SubmissionForm.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SubmissionForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var SubmitIconArrow = function SubmitIconArrow() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M4 12H20M20 12L16 8M20 12L16 16",
+      stroke: "white",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }), " "]
+  });
+};
+function SubmissionForm(_ref) {
+  var title = _ref.title,
+    desc = _ref.desc,
+    onSubmit = _ref.onSubmit,
+    _ref$buttons = _ref.buttons,
+    buttons = _ref$buttons === void 0 ? [] : _ref$buttons;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      firstname: '',
+      lastname: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      postcode: ''
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    dataForm = _useState2[0],
+    setDataForm = _useState2[1];
+  var onUpdateFields = function onUpdateFields(value, name) {
+    setDataForm(_objectSpread(_objectSpread({}, dataForm), {}, _defineProperty({}, name, value)));
+  };
+  var fieldsValidate = function fieldsValidate() {};
+  var _onSubmit = function _onSubmit(e) {
+    e.preventDefault();
+    var pass = fieldsValidate();
+    if (!pass) return;
+    onSubmit(e, dataForm);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "dc-submission-form-container",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+      onSubmit: function onSubmit(e) {
+        return _onSubmit(e);
+      },
+      className: "dc-form dc-form__submission-form",
+      children: [title && title != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+        className: "dc-form__title",
+        children: title
+      }), desc && desc != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "dc-form__desc",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          dangerouslySetInnerHTML: {
+            __html: desc
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+        className: "dc-form__group-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "__label",
+          children: "First name *"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "text",
+          name: "firstname",
+          placeholder: "",
+          value: dataForm.firstname,
+          required: true,
+          onChange: function onChange(e) {
+            return onUpdateFields(e.target.value, 'firstname');
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+        className: "dc-form__group-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "__label",
+          children: "Last name *"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "text",
+          name: "lastname",
+          placeholder: "",
+          value: dataForm.lastname,
+          required: true,
+          onChange: function onChange(e) {
+            return onUpdateFields(e.target.value, 'lastname');
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+        className: "dc-form__group-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "__label",
+          children: "Email *"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "email",
+          name: "email",
+          placeholder: "",
+          value: dataForm.email,
+          required: true,
+          onChange: function onChange(e) {
+            return onUpdateFields(e.target.value, 'email');
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+        className: "dc-form__group-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "__label",
+          children: "Phone *"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "tel",
+          name: "phone",
+          placeholder: "",
+          value: dataForm.phone,
+          required: true,
+          onChange: function onChange(e) {
+            return onUpdateFields(e.target.value, 'phone');
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "dc-form__address-group-fields",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+          className: "dc-form__group-field",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "__label",
+            children: "Address"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            name: "address",
+            placeholder: "",
+            value: dataForm.address,
+            required: true,
+            onChange: function onChange(e) {
+              return onUpdateFields(e.target.value, 'address');
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+          className: "dc-form__group-field",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "__label",
+            children: "City"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            name: "city",
+            placeholder: "",
+            value: dataForm.city,
+            required: true,
+            onChange: function onChange(e) {
+              return onUpdateFields(e.target.value, 'city');
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+          className: "dc-form__group-field",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "__label",
+            children: "Postcode"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "text",
+            name: "postcode",
+            placeholder: "",
+            value: dataForm.postcode,
+            required: true,
+            onChange: function onChange(e) {
+              return onUpdateFields(e.target.value, 'postcode');
+            }
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "dc-form__bottom",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+          className: "design-casket__button button-secondary design-casket__button-submit",
+          children: ["Submit", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(SubmitIconArrow, {})]
+        }), buttons.length > 0 && buttons.map(function (B, __btn_index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: B
+          }, __btn_index);
+        })]
+      })]
     })
   });
 }
@@ -863,6 +1112,10 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
     _useState20 = _slicedToArray(_useState19, 2),
     editImageModalOpen = _useState20[0],
     setEditImageModalOpen = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    submissionModalOpen = _useState22[0],
+    setSubmissionModalOpen = _useState22[1];
   var inShowHandles = ['65b13379-a8bc-49e1-a7a5-de149038571d',
   // left side key
   '529e804a-e512-49ff-80c7-463f9a6c247c' // right side key
@@ -999,7 +1252,9 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
     editItem: editItem,
     setEditItem: setEditItem,
     onApplyDesign: onApplyDesign,
-    onSaveDesign: onSaveDesign
+    onSaveDesign: onSaveDesign,
+    submissionModalOpen: submissionModalOpen,
+    setSubmissionModalOpen: setSubmissionModalOpen
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(DesignCasketContext.Provider, {
     value: value,

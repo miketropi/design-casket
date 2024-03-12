@@ -83,6 +83,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   const [showHandles, setShowHandles] = useState(false);
   const [displayOptShowHandles, setDisplayOptShowHandles] = useState(false);
   const [editImageModalOpen, setEditImageModalOpen] = useState(false);
+  const [submissionModalOpen, setSubmissionModalOpen] = useState(false);
 
   const inShowHandles = [
     '65b13379-a8bc-49e1-a7a5-de149038571d',   // left side key
@@ -183,6 +184,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     editItem, setEditItem,
     onApplyDesign,
     onSaveDesign,
+    submissionModalOpen, setSubmissionModalOpen,
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }

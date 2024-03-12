@@ -4,6 +4,7 @@ import Casket3D from "./Casket3D";
 import DesignToolBar from "./DesignToolBar";
 import Modal from "./Modal";
 import EditImage from "./EditImage";
+import SubmissionForm from "./SubmissionForm";
 
 export default function DesignCasketApp() {
   const { 
@@ -13,7 +14,8 @@ export default function DesignCasketApp() {
     displayOptShowHandles,
     editButtonText,
     editImageModalOpen, setEditImageModalOpen,
-    onApplyDesign } = useDesignCasketContext();
+    onApplyDesign,
+    submissionModalOpen, setSubmissionModalOpen } = useDesignCasketContext();
   
   const ButtonSaveEdit = () => {
     return <button onClick={ e => {
@@ -22,6 +24,13 @@ export default function DesignCasketApp() {
     } } className="design-casket__button button-secondary">
       Save Design
     </button>
+  }
+
+  const ButtonSubmissionFormCloseModal = () => {
+    return <button className="design-casket__button" type="button" onClick={ e => {
+      e.preventDefault();
+      setSubmissionModalOpen(false);
+    } }>Close</button>
   }
 
   // casket-design-show-handles
@@ -53,6 +62,18 @@ export default function DesignCasketApp() {
         <ButtonSaveEdit />
       ] }>
       <EditImage />
+    </Modal>
+
+    <Modal
+      className="design-casket__modal-submission-form"
+      title={ `Submit Your Design` }
+      desc={ `Please complete and submit the form below. A member of our team will be in touch to discuss your specific requirements.` }
+      open={ submissionModalOpen }
+      buttonOff = { true }
+      >
+      <SubmissionForm buttons={ [
+        <ButtonSubmissionFormCloseModal />
+      ] } />
     </Modal>
   </div>
 }

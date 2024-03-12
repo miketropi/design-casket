@@ -76,11 +76,11 @@
   color: black;
 }
 .design-casket__button {
-  background: #55369C;
-  color: white;
+  background: #55369C !important;
+  color: white !important;
   border: none !important;
-  border-radius: 0;
-  display: flex;
+  border-radius: 0 !important;
+  display: flex !important;
   align-items: center;
   gap: 0.5em;
   font-weight: bold;
@@ -93,19 +93,19 @@
 }
 .design-casket__button:hover, .design-casket__button:focus {
   opacity: 0.8;
-  background: #55369C;
+  background: #55369C !important;
 }
 .design-casket__button.button-secondary {
-  background: #FF6600;
+  background: #FF6600 !important;
 }
 .design-casket__button.button-secondary:hover {
-  background: #FF6600;
+  background: #FF6600 !important;
 }
 .design-casket__button.button-gray {
-  background: gray;
+  background: gray !important;
 }
 .design-casket__button.button-gray:hover {
-  background: gray;
+  background: gray !important;
 }
 
 .casket-design {
@@ -439,6 +439,39 @@
 .casket-design-upload-message {
   margin-left: 1rem;
   font-size: 1rem;
+}
+
+.dc-form input[type=text],
+.dc-form input[type=tel],
+.dc-form input[type=number],
+.dc-form input[type=email] {
+  border-radius: 1px;
+  border: solid 1px #eee;
+  background: white;
+  padding: 0.5em;
+}
+.dc-form__group-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5em;
+}
+.dc-form__group-field .__label {
+  display: block;
+  padding: 0.5em 0;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+.dc-form__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1em;
+  margin-top: 2em;
+}
+.dc-form__address-group-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
 }
 
 .design-casket__modal {

@@ -126,7 +126,7 @@ export default function EditImage() {
     fabric.Image.fromURL(imageUrl, (img) => {
       // img.selectable = false;
       const maskWidth = fabricMaskObject.current.getScaledWidth();
-      img.set('__LABEL', 'PREVIEW_IMAGE');
+      img.set('__LABEL', 'PREVIEW_IMAGE'); // set tag
       img.set('__MASKWIDTH', maskWidth);
 
       imageObject.current = img;
