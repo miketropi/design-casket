@@ -128,6 +128,36 @@
         background: gray !important;
       }
     }
+
+    &.__btn-loading {
+      pointer-events: none;
+      opacity: .8;
+    }
+  }
+
+  &__thanks-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2em 2em 1em;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+    margin: 1em auto;
+
+    svg {
+      width: 60px;
+      margin-bottom: 1em;
+    }
+
+    h4 {
+      margin: 0 0 1em;
+      text-transform: uppercase;
+      font-weight: bold !important;
+      font-size: 1em;
+      font-family: Arial !important;
+    }
   }
 }
 
@@ -563,4 +593,9 @@ $angle-2: 17deg;
     grid-template-columns: repeat(3, 1fr);
     gap: 1em; 
   }
+}
+
+.__is-disable {
+  pointer-events: none;
+  opacity: .8;
 }

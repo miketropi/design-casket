@@ -5,6 +5,7 @@ import DesignToolBar from "./DesignToolBar";
 import Modal from "./Modal";
 import EditImage from "./EditImage";
 import SubmissionForm from "./SubmissionForm";
+import ThanksMessage from "./ThanksMessage";
 
 export default function DesignCasketApp() {
   const { 
@@ -15,14 +16,17 @@ export default function DesignCasketApp() {
     editButtonText,
     editImageModalOpen, setEditImageModalOpen,
     onApplyDesign,
-    submissionModalOpen, setSubmissionModalOpen } = useDesignCasketContext();
+    submissionModalOpen, setSubmissionModalOpen,
+    onSubmissionSubmit,
+    submissionLoading, setSubmissionLoading,
+    submissionComplete, setSubmissionComplete } = useDesignCasketContext();
   
   const ButtonSaveEdit = () => {
     return <button onClick={ e => {
       e.preventDefault();
       onApplyDesign();
     } } className="design-casket__button button-secondary">
-      Save Design
+      Save
     </button>
   }
 
@@ -34,7 +38,7 @@ export default function DesignCasketApp() {
   }
 
   // casket-design-show-handles
-  return <div className="design-casket design-casket-container">
+  return <div className={ ['design-casket design-casket-container'] }>
     <DesignToolBar />
 
     <div className={ [
@@ -71,9 +75,17 @@ export default function DesignCasketApp() {
       open={ submissionModalOpen }
       buttonOff = { true }
       >
-      <SubmissionForm buttons={ [
-        <ButtonSubmissionFormCloseModal />
-      ] } />
+        {
+          ((_sc) => {
+            if(_sc == false) {
+              return <SubmissionForm onSubmitFn={ onSubmissionSubmit } loading={ submissionLoading } buttons={ [
+                <ButtonSubmissionFormCloseModal />
+              ] } />
+            } else {
+              return <ThanksMessage />
+            }
+          })(submissionComplete)
+        }
     </Modal>
   </div>
 }

@@ -66,3 +66,25 @@ function dc_get_design_json_url($postID) {
   $segments = explode('/', $path);
   return get_site_url() . '/wp-content/uploads/' . DC_DESIGN_CASKET_JSON_FOLDER . '/' . end($segments);
 }
+
+function dc_create_user($userInfo) {
+
+}
+
+function dc_save_submission($formData) {
+  $fullName = $formData['firstname'] . ' ' . $formData['lastname']; 
+  $designID = $formData['design'];
+  $title = sprintf('Submission %s | Design ID: %s | By: %s', current_time('mysql'), $designID, $fullName);
+  $newPostID = wp_insert_post([
+    'post_title' => $title,
+    'post_type' => 'dc-submission', 
+    'post_status' => 'publish', 
+  ]);
+
+  $metaFields = ['firstname', 'lastname', 'email', 'phone', 'address', 'city', 'postcode', 'design'];
+  foreach($metaFields as $_index => $_f_name) {
+    update_post_meta($newPostID, $_f_name, (isset($formData[$_f_name]) ? $formData[$_f_name] : ''));
+  }
+
+  return $newPostID;
+}

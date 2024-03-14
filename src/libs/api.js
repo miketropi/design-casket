@@ -23,4 +23,10 @@ const getDesignJsonUrl = async (postID) => {
   });
 }
 
-export { __request, saveDesign, getDesignJsonUrl }
+const saveSubmission = async (submissionData) => {
+  return await __request('dc_ajax_save_submission', {
+    submissionData
+  });
+}
+
+export { __request, saveDesign, getDesignJsonUrl, saveSubmission }

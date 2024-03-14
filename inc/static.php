@@ -15,7 +15,8 @@ function dc_enqueue_scripts() {
       'image_collection' => dc_get_image_collection(),
       'instructions_content' => get_field('instructions_content', 'option'),
     ],
-    'lang' => []
+    'lang' => [],
+    '_COOKIE' => $_COOKIE,
   ]);
 }
 

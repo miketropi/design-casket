@@ -30,3 +30,18 @@ function dc_ajax_get_design_json_url() {
 
 add_action( 'wp_ajax_dc_ajax_get_design_json_url', 'dc_ajax_get_design_json_url' );
 add_action( 'wp_ajax_nopriv_dc_ajax_get_design_json_url', 'dc_ajax_get_design_json_url' );
+
+function dc_ajax_save_submission() {
+  $submissionData = $_POST['data']['submissionData'];
+  $postID = dc_save_submission($submissionData);
+
+  do_action('DC:SAVE_SUBMISSION_SUCCESSFUL_HOOK', $submissionData, $postID );
+
+  wp_send_json([
+    'succeed' => true,
+    'submissionID' => $postID,
+  ]);
+}
+
+add_action( 'wp_ajax_dc_ajax_save_submission', 'dc_ajax_save_submission' );
+add_action( 'wp_ajax_nopriv_dc_ajax_save_submission', 'dc_ajax_save_submission' );

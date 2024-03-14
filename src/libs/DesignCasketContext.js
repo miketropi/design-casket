@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { saveDesign, getDesignJsonUrl } from "./api";
+import { saveDesign, getDesignJsonUrl, saveSubmission } from "./api";
 import lidIcon from '../../images/lid_icon.png';
 import leftIcon from '../../images/left_icon.png';
 import rightIcon from '../../images/right_icon.png';
@@ -84,6 +84,9 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   const [displayOptShowHandles, setDisplayOptShowHandles] = useState(false);
   const [editImageModalOpen, setEditImageModalOpen] = useState(false);
   const [submissionModalOpen, setSubmissionModalOpen] = useState(false);
+  const [hadEdit, setHasEdit] = useState(false);
+  const [submissionLoading, setSubmissionLoading] = useState(false);
+  const [submissionComplete, setSubmissionComplete] = useState(false);
 
   const inShowHandles = [
     '65b13379-a8bc-49e1-a7a5-de149038571d',   // left side key
@@ -160,11 +163,36 @@ const DebuggingCasketContext_Provider = ({ children }) => {
 
     setData(__data);
     setEditImageModalOpen(false); // close modal edit
+    setHasEdit(true);
   }
 
   const onSaveDesign = async () => {
     const res = await saveDesign(data, '');
     setPID(res.PID);
+    return res;
+  }
+
+  const onSubmissionSubmit = async (e, formData) => {
+    setSubmissionLoading(true);
+    let _designID = PID;
+    if(_designID == '') {
+      // save new design
+      const res = await onSaveDesign();
+      _designID = res.PID
+    } else {
+      // had modify design
+      if(hadEdit == true) {
+        const res = await onSaveDesign();
+        _designID = res.PID
+      }
+    }
+
+    let _formData = {...formData, design: _designID }
+    // console.log(e, formData, PID);
+    const resSaveSubmission = await saveSubmission(_formData);
+    console.log(resSaveSubmission);
+    setSubmissionLoading(false);
+    setSubmissionComplete(true)
   }
 
   const value = {
@@ -185,6 +213,10 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     onApplyDesign,
     onSaveDesign,
     submissionModalOpen, setSubmissionModalOpen,
+    onSubmissionSubmit,
+    hadEdit, setHasEdit,
+    submissionLoading, setSubmissionLoading,
+    submissionComplete, setSubmissionComplete
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }
