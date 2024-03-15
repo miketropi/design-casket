@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 
-export default function UploadImage({ onUpload }) {
-  const fileTypes = ["JPEG", "PNG"];
-  const [file, setFile] = useState(null);
-  const handleChange = (file) => {
-    console.log(file);
-    setFile(file);
-  };
+export default function UploadImage({ onhandleChange }) {
+  const fileTypes = ["JPEG", "JPG", "PNG"];
+
+  // const handleChange = (file) => {
+  //   console.log(file);
+  //   setFile(file);
+
+  //   let fr = new FileReader();
+  //   fr.onload = function () {
+  //     console.log(fr.result)
+  //   }
+  //   fr.readAsDataURL(file);
+  // };
 
   return <div>
     <FileUploader
       classes="__file-upload-area"
       multiple={ false }
-      handleChange={ handleChange }
+      handleChange={ onhandleChange } 
       name="file"
+      maxSize={ 10 }
       types={ fileTypes }
     />
-    <p>{file ? JSON.stringify(file.name) : "no files uploaded yet"}</p>
   </div>
 }

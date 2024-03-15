@@ -62,12 +62,65 @@
         .__file-upload-area {
           min-width: auto;
           max-width: 100%;
-          line-height: normal;
+          line-height: 1.1em;
           margin-bottom: .5em;
         }
       }
 
       
+    }
+
+    .__user-upload-images {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5em;
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: solid 1px #ececec;
+
+      max-height: 200px;
+      overflow: hidden;
+      overflow-y: auto;
+  
+      li.__user-image-item {
+        list-style: none;
+        line-height: 0;
+        cursor: pointer;
+        position: relative;
+  
+        span.__image {
+          display: inline-block;
+          width: 100%;
+          padding-bottom: 100%;
+          border-radius: 1px;
+        }
+
+        span.__remove {
+          position: absolute;
+          right: -6px;
+          top: -6px;
+          width: 18px;
+          line-height: 0;
+          background: white;
+          border-radius: 20px;
+          opacity: 0;
+          transition: .3s ease;
+          -webkit-transition: .3s ease;
+
+          svg {
+            fill: $secondary-color;
+          }
+        }
+
+        &:hover {
+
+          span.__remove {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

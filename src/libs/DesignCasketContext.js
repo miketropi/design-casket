@@ -86,7 +86,8 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   const [submissionModalOpen, setSubmissionModalOpen] = useState(false);
   const [hadEdit, setHasEdit] = useState(false);
   const [submissionLoading, setSubmissionLoading] = useState(false);
-  const [submissionComplete, setSubmissionComplete] = useState(false);
+  const [submissionComplete, setSubmissionComplete] = useState(false); 
+  const [userUploadImages, setUserUploadImages] = useState([]);
 
   const inShowHandles = [
     '65b13379-a8bc-49e1-a7a5-de149038571d',   // left side key
@@ -126,12 +127,35 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     setPID(PID);
   }
 
+  const __loadUserUploadImages = () => {
+    const __DS_USER_UPLOAD_IMAGES = localStorage.getItem("__DS_USER_UPLOAD_IMAGES");
+    if(__DS_USER_UPLOAD_IMAGES == null) return;
+
+    setUserUploadImages(JSON.parse(__DS_USER_UPLOAD_IMAGES));
+  }
+
+  const __addUserUploadImages = (url) => {
+    let __DS_USER_UPLOAD_IMAGES = [...userUploadImages];
+    __DS_USER_UPLOAD_IMAGES.push(url);
+    setUserUploadImages(__DS_USER_UPLOAD_IMAGES);
+    localStorage.setItem("__DS_USER_UPLOAD_IMAGES", JSON.stringify(__DS_USER_UPLOAD_IMAGES));
+  }
+
+  const __removeUserUploadImageItem = (index) => {
+    let __DS_USER_UPLOAD_IMAGES = [...userUploadImages];
+    __DS_USER_UPLOAD_IMAGES.splice(index, 1);
+    setUserUploadImages(__DS_USER_UPLOAD_IMAGES);
+    localStorage.setItem("__DS_USER_UPLOAD_IMAGES", JSON.stringify(__DS_USER_UPLOAD_IMAGES));
+  }
+
   useEffect(() => {
     __setPID();
 
     window.addEventListener("hashchange", () => {
       __setPID();
     }, false );
+
+    __loadUserUploadImages();
   }, []);
 
   useEffect(() => {
@@ -216,7 +240,9 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     onSubmissionSubmit,
     hadEdit, setHasEdit,
     submissionLoading, setSubmissionLoading,
-    submissionComplete, setSubmissionComplete
+    submissionComplete, setSubmissionComplete,
+    userUploadImages,
+    __addUserUploadImages, __removeUserUploadImageItem,
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }

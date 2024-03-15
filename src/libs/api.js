@@ -29,4 +29,18 @@ const saveSubmission = async (submissionData) => {
   });
 }
 
-export { __request, saveDesign, getDesignJsonUrl, saveSubmission }
+const uploadImageRequest = async (formData) => {
+  formData.append('action', 'dc_ajax_upload_image');      
+
+  const res = await jQuery.ajax({
+    type: 'POST',
+    url: DC_PHP_DATA.ajax_url,
+    data: formData,
+    contentType: false, 
+    processData: false,
+  })
+
+  return res;
+}
+
+export { __request, saveDesign, getDesignJsonUrl, saveSubmission, uploadImageRequest }

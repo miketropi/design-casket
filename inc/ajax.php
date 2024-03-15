@@ -38,10 +38,22 @@ function dc_ajax_save_submission() {
   do_action('DC:SAVE_SUBMISSION_SUCCESSFUL_HOOK', $submissionData, $postID );
 
   wp_send_json([
-    'succeed' => true,
+    'success' => true,
     'submissionID' => $postID,
   ]);
 }
 
 add_action( 'wp_ajax_dc_ajax_save_submission', 'dc_ajax_save_submission' );
 add_action( 'wp_ajax_nopriv_dc_ajax_save_submission', 'dc_ajax_save_submission' );
+
+function dc_ajax_upload_image() {
+  $res = dc_upload_image($_FILES['image_upload']);
+  
+  wp_send_json([
+    'success' => true,
+    'upload' => $res,
+  ]);
+}
+
+add_action( 'wp_ajax_dc_ajax_upload_image', 'dc_ajax_upload_image' );
+add_action( 'wp_ajax_nopriv_dc_ajax_upload_image', 'dc_ajax_upload_image' );

@@ -88,3 +88,15 @@ function dc_save_submission($formData) {
 
   return $newPostID;
 }
+
+function dc_upload_image($file) {
+  if ( ! function_exists( 'wp_handle_upload' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/file.php' );
+  }
+
+  $upload_overrides = array( 'test_form' => false );
+  $uploadedfile = $file;
+
+  $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+  return $movefile;
+}

@@ -3,11 +3,16 @@ import { useDesignCasketContext } from "../libs/DesignCasketContext";
 import { Tooltip } from 'react-tooltip';
 import { fabric } from "fabric";
 import UploadImage from "./UploadImage";
+import { uploadImageRequest } from '../libs/api'; 
 
 const __HELP_ICON = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7.92 9.234v.102a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-1.29.998-1.979 2.34-1.979 1.308 0 2.168.689 2.168 1.67 0 .928-.482 1.359-1.686 1.91l-.344.154C11.379 11.54 11 12.21 11 13.381v.119a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-.516.138-.723.55-.912l.345-.155c1.445-.654 2.529-1.514 2.529-3.39v-.103c0-1.978-1.72-3.441-4.164-3.441-2.478 0-4.336 1.428-4.336 3.734zm2.58 7.757c0 .867.659 1.509 1.491 1.509.85 0 1.509-.642 1.509-1.509 0-.867-.659-1.491-1.509-1.491-.832 0-1.491.624-1.491 1.491z" fill="#000000"/></svg>`;
 
+const RemoveIcon = () => {
+  return <svg version="1.1" viewBox="0 0 1200 1200" > <path d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600 s600-268.629,600-600S931.371,0,600,0z M411.475,262.5L600,451.025L788.525,262.5L937.5,411.475L748.975,600L937.5,788.525 L788.525,937.5L600,748.975L411.475,937.5L262.5,788.525L451.025,600L262.5,411.475L411.475,262.5z"/> </svg>
+}
+
 export default function EditImage() {
-  const { editItem, setEditItem, image_collection } = useDesignCasketContext();
+  const { editItem, setEditItem, image_collection, __addUserUploadImages, __removeUserUploadImageItem, userUploadImages } = useDesignCasketContext();
   const [ ready, setReady ] = useState(false);
   const { maskImage, fabricConfig } = editItem
   
@@ -151,6 +156,18 @@ export default function EditImage() {
     setEditItem({...editItem, previewImage: imageUrl});
   }
 
+  const onUploadImage = async (file) => {
+    let formData = new FormData();
+    formData.append('enctype', 'multipart/form-data');
+    formData.append('image_upload', file);
+
+    const { success, upload } = await uploadImageRequest(formData);
+    const { url } = upload;
+    // console.log(res); 
+    __addUserUploadImages(url)
+    onSetImagePreview(url);
+  }
+
   return <div className="design-casket__edit-image">
     
     <div className="__edit-area">
@@ -184,7 +201,31 @@ export default function EditImage() {
         <Tooltip anchorSelect="#design-casket-upload-image-tooltip">
           Upload an image from your device
         </Tooltip>
-        <UploadImage />
+        <UploadImage onhandleChange={ onUploadImage } />
+        {/* { JSON.stringify(userUploadImages) } */}
+        {
+          userUploadImages.length > 0 && 
+          <ul className="__user-upload-images">
+            {
+              userUploadImages.map((url, __index_url) => {
+                return <li className="__user-image-item" key={ __index_url } >
+                  <span onClick={ e => {
+                    e.preventDefault();
+                    onSetImagePreview(url);
+                  } } className="__image" style={{ background: `url(${ url }) no-repeat center center / cover, #eee` }}></span>
+                  <span className="__remove" onClick={ e => {
+                    e.preventDefault(); 
+                    let r = confirm('Are you sure you want to remove?');
+
+                    if(r) {
+                      __removeUserUploadImageItem(__index_url)
+                    }
+                  } }><RemoveIcon /></span>
+                </li>
+              })
+            }
+          </ul>
+        }
       </div>
     </div> 
   </div>
