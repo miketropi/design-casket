@@ -17,7 +17,9 @@ const CasketLayerConfig = [
     classTransformView: 'casket-design-preview-show-lid', 
     fabricConfig: {
       scaleToWidth: 600,
-    }
+      textDesign: true,
+      textDefault: 'Design Casket'
+    } 
   },
   {
     __key: '65b13379-a8bc-49e1-a7a5-de149038571d',
@@ -99,16 +101,51 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     if(!design_data_url) return;
 
     jQuery.get(design_data_url, designData => {
-      
+      let mapBoolean = {
+        "true": true,
+        "false": false,
+      };
+
       // Fix json data
       let _designData = designData.map(i => {
+
+        if(i?.fabricConfig?.textDesign != undefined) {
+          i.fabricConfig.textDesign = mapBoolean[i.fabricConfig.textDesign];
+        }
+
+        if(!i.save.objects) return i;
+
         i.save.objects = [...i.save.objects].map(oItem => {
           oItem.crossOrigin = null;
           oItem.filters = [];
-          oItem.flipX = false;
-          oItem.flipY = false;
+          // oItem.flipX = false;
+          // oItem.flipY = false;
           oItem.shadow = null;
-          oItem.strokeUniform = false;
+          // oItem.strokeUniform = false;
+
+          let bl = [
+            'linethrough', 
+            'selectable', 
+            'hasControls', 
+            'lockMovementY', 
+            'overline', 
+            'strokeUniform', 
+            'underline', 
+            'visible',
+            'flipX', 
+            'flipY',
+          ];
+
+          bl.forEach(__ => {
+            if(oItem[__]) {
+              oItem[__] = mapBoolean[oItem[__]];
+            }
+          })
+
+          if(oItem.__LABEL == "TEXT_OBJECT") {
+            oItem.styles = {};
+          }
+
           return oItem;
         });
         return i;

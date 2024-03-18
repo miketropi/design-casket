@@ -10,6 +10,7 @@ import ThanksMessage from "./ThanksMessage";
 export default function DesignCasketApp() {
   const { 
     version, 
+    data,
     faqsModalOpen, setFaqsModalOpen, 
     showHandles, 
     displayOptShowHandles,
@@ -19,7 +20,8 @@ export default function DesignCasketApp() {
     submissionModalOpen, setSubmissionModalOpen,
     onSubmissionSubmit,
     submissionLoading, setSubmissionLoading,
-    submissionComplete, setSubmissionComplete } = useDesignCasketContext();
+    submissionComplete, setSubmissionComplete,
+    editItem, setEditItem } = useDesignCasketContext();
   
   const ButtonSaveEdit = () => {
     return <button onClick={ e => {
@@ -61,7 +63,10 @@ export default function DesignCasketApp() {
       size={ 'lg' }
       title={ editButtonText }
       open={ editImageModalOpen }
-      onClose={ e => setEditImageModalOpen(false) }
+      onClose={ e => {
+        setEditImageModalOpen(false);
+        // setEditItem(null);
+      } }
       buttons={ [
         <ButtonSaveEdit />
       ] }>
@@ -87,5 +92,6 @@ export default function DesignCasketApp() {
           })(submissionComplete)
         }
     </Modal>
+    {/* { JSON.stringify(data) }  */}
   </div>
 }

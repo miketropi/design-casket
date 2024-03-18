@@ -640,3 +640,16 @@
 .design-casket__edit-image .__user-upload-images li.__user-image-item:hover span.__remove {
   opacity: 1;
 }
+.design-casket__edit-image .__text-edit .__textarea-field {
+  border-radius: 1px;
+  font-family: Arial;
+  color: black;
+  font-size: 0.9em;
+  border-color: #ddd;
+}
+.design-casket__edit-image .__text-edit .__textarea-field::-moz-placeholder {
+  color: #707070;
+}
+.design-casket__edit-image .__text-edit .__textarea-field::placeholder {
+  color: #707070;
+}

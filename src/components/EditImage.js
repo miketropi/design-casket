@@ -12,14 +12,23 @@ const RemoveIcon = () => {
 }
 
 export default function EditImage() {
-  const { editItem, setEditItem, image_collection, __addUserUploadImages, __removeUserUploadImageItem, userUploadImages } = useDesignCasketContext();
+  const { 
+    editItem, 
+    setEditItem, 
+    image_collection, 
+    __addUserUploadImages, 
+    __removeUserUploadImageItem, 
+    userUploadImages } = useDesignCasketContext();
   const [ ready, setReady ] = useState(false);
-  const { maskImage, fabricConfig } = editItem
+  const [ text, setText ] = useState(editItem.fabricConfig?.textDefault);
+  const [ modified, setModified ] = useState(false);
+  const { maskImage, fabricConfig } = editItem;
   
   const canvasRef = useRef(null);
   const fabricRef = useRef(null);
   const fabricMaskObject = useRef(null);
   const imageObject = useRef(null);
+  const TextObject = useRef(null);
 
   useEffect(() => {
     fabricRef.current = initCanvas();
@@ -28,6 +37,7 @@ export default function EditImage() {
     if(editItem.save != null) {
       // load save data
       // console.log('load save data');
+      // console.log(editItem.save)
       fabricRef.current.clear();
       fabricRef.current.loadFromJSON(editItem.save, () => {
         fabricRef.current.renderAll();  
@@ -45,18 +55,32 @@ export default function EditImage() {
             fabricMaskObject.current = _object;
             setReady(true);
             break;
+
+          case "TEXT_OBJECT":
+            console.log('TEXT_OBJECT', _object) 
+            setText(_object.text);
+            TextObject.current = _object;
+            _object.on('modified', onUpdate__TEXTOBJECT);
+            break;
         }
       }); 
     } else {
       // load mask image 
       // console.log('load init mask image');
-      loadMaskImage(); 
+      loadMaskImage(() => {
+        if(editItem.fabricConfig?.textDesign == true)
+          setupTextObject();
+      }); 
+      
     }
 
     fabricRef.current.on("object:modified", function (e) {
-      let jsonString = fabricRef.current.toJSON(['__LABEL', '__MASKWIDTH']); // JSON.stringify(fabricRef.current);
+      // console.log(fabricMaskObject.current, TextObject.current, imageObject.current);
+      if(! fabricMaskObject.current) return;
+      let exportMethods = ['__LABEL', '__MASKWIDTH', 'lockMovementY', 'hasControls', 'selectable'];
+      let jsonString = fabricRef.current.toJSON(exportMethods); // JSON.stringify(fabricRef.current);
       // let jsonString = JSON.stringify(fabricRef.current);
-      
+      // console.log(jsonString);
       const __designImage = fabricRef.current.toDataURL({
         left: fabricMaskObject.current.left,
         top: fabricMaskObject.current.top,
@@ -75,9 +99,19 @@ export default function EditImage() {
       fabricRef.current = null;
       fabricMaskObject.current = null;
       imageObject.current = null;
+      TextObject.current = null
       setReady(false)
     }
   }, [])
+
+  useEffect(() => {
+    // console.log(TextObject.current);
+    if(!TextObject.current) return;
+    TextObject.current.set('text', text);
+    fabricRef.current.renderAll();
+
+    fabricRef.current.fire('object:modified');
+  }, [text]);
 
   useEffect(() => {
     if(ready) {
@@ -93,10 +127,11 @@ export default function EditImage() {
       // backgroundColor: '#FAFAFA',
       selection: false,
       renderOnAddRemove: true,
+      preserveObjectStacking: true,
     })
   ) 
 
-  const loadMaskImage = () => {
+  const loadMaskImage = (cb) => {
     fabric.Image.fromURL(maskImage, (img) => {
       img.set('__LABEL', 'MASK_IMAGE');
       fabricMaskObject.current = img;
@@ -114,7 +149,52 @@ export default function EditImage() {
 
       // console.log(img, img.getScaledWidth());
       setReady(true);
+
+      if(cb) {
+        cb()  
+      }
     }); 
+  }
+
+  const onUpdate__TEXTOBJECT = (evt) => {
+    // let modifiedObject = evt.target;
+    // console.log(modifiedObject);
+    // modifiedObject.set('__MASKWIDTH', modifiedObject.getScaledWidth()); 
+    
+    fabricRef.current.fire('object:modified');
+  }
+
+  const setupTextObject = () => {
+    TextObject.current = new fabric.Text('Design Casket', { 
+      fill: 'red',
+      fontSize: 18,
+      originX: "center",
+      originY: "center",
+      angle: -90,
+      fontFamily: "Arial",
+      textAlign: 'center',
+      width: 150,
+      lockMovementY: true,
+      hasControls: false,
+    });
+
+    TextObject.current.set('__LABEL', 'TEXT_OBJECT');
+    TextObject.current.selectable = false;
+    TextObject.current.globalCompositeOperation = 'source-atop';
+    // TextObject.current.setControlVisible('mtr', false);
+
+    // Render the Text on Canvas
+    fabricRef.current.add(TextObject.current); 
+    
+    // Object center
+    fabricRef.current.centerObject(TextObject.current); 
+    TextObject.current.set({ left: 232, })
+
+    fabricRef.current.renderAll();
+    TextObject.current.on('modified', onUpdate__TEXTOBJECT);
+
+    // trigger object:modified
+    fabricRef.current.fire('object:modified');
   }
 
   const onUpdate__MASKWIDTH = (evt) => {
@@ -144,6 +224,12 @@ export default function EditImage() {
       fabricRef.current.add(img); 
       fabricRef.current.centerObject(img); // Object center
       fabricRef.current.setActiveObject(img) // Active object
+      // fabricRef.current.moveTo(img, 3);
+      
+      let _zindex = fabricRef.current.getObjects().indexOf(img);
+      // console.log(_zindex)
+      if(TextObject.current)
+        fabricRef.current.moveTo(TextObject.current, _zindex + 1); 
 
       fabricRef.current.renderAll();
 
@@ -172,11 +258,24 @@ export default function EditImage() {
     
     <div className="__edit-area">
       <canvas ref={ canvasRef }></canvas>
-      {/* { JSON.stringify(data) } */}
-      {/* <img src={ editItem.designImage } /> */}
-      {/* { JSON.stringify(editItem) }  */}
     </div>
     <div className="__edit-tool-area">
+      {
+        editItem.fabricConfig?.textDesign == true &&
+        <div className="__text-edit">
+          <h5>Add Text <sup className="__icon-tooltip" id="design-casket-text-edit-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
+          <Tooltip anchorSelect="#design-casket-text-edit-tooltip">
+            Add your custom text 
+          </Tooltip>
+          <div>
+            <textarea 
+              className="__textarea-field" 
+              placeholder="Add your custom text here!" 
+              value={ text }
+              onChange={ e => setText(e.target.value) }></textarea>
+          </div>
+        </div>
+      }
       <div className="__select-image">
         <h5>Select Image <sup className="__icon-tooltip" id="design-casket-select-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
         <Tooltip anchorSelect="#design-casket-select-image-tooltip">

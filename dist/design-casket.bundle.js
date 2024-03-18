@@ -975,6 +975,7 @@ __webpack_require__.r(__webpack_exports__);
 function DesignCasketApp() {
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__.useDesignCasketContext)(),
     version = _useDesignCasketConte.version,
+    data = _useDesignCasketConte.data,
     faqsModalOpen = _useDesignCasketConte.faqsModalOpen,
     setFaqsModalOpen = _useDesignCasketConte.setFaqsModalOpen,
     showHandles = _useDesignCasketConte.showHandles,
@@ -989,7 +990,9 @@ function DesignCasketApp() {
     submissionLoading = _useDesignCasketConte.submissionLoading,
     setSubmissionLoading = _useDesignCasketConte.setSubmissionLoading,
     submissionComplete = _useDesignCasketConte.submissionComplete,
-    setSubmissionComplete = _useDesignCasketConte.setSubmissionComplete;
+    setSubmissionComplete = _useDesignCasketConte.setSubmissionComplete,
+    editItem = _useDesignCasketConte.editItem,
+    setEditItem = _useDesignCasketConte.setEditItem;
   var ButtonSaveEdit = function ButtonSaveEdit() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
       onClick: function onClick(e) {
@@ -1036,7 +1039,8 @@ function DesignCasketApp() {
       title: editButtonText,
       open: editImageModalOpen,
       onClose: function onClose(e) {
-        return setEditImageModalOpen(false);
+        setEditImageModalOpen(false);
+        // setEditItem(null);
       },
       buttons: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ButtonSaveEdit, {})],
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_EditImage__WEBPACK_IMPORTED_MODULE_5__["default"], {})
@@ -1085,6 +1089,7 @@ function DesignToolBar() {
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__.useDesignCasketContext)(),
     data = _useDesignCasketConte.data,
     setData = _useDesignCasketConte.setData,
+    navActive = _useDesignCasketConte.navActive,
     editButtonText = _useDesignCasketConte.editButtonText,
     setFaqsModalOpen = _useDesignCasketConte.setFaqsModalOpen,
     displayOptShowHandles = _useDesignCasketConte.displayOptShowHandles,
@@ -1093,7 +1098,9 @@ function DesignToolBar() {
     setEditImageModalOpen = _useDesignCasketConte.setEditImageModalOpen,
     onSaveDesign = _useDesignCasketConte.onSaveDesign,
     submissionModalOpen = _useDesignCasketConte.submissionModalOpen,
-    setSubmissionModalOpen = _useDesignCasketConte.setSubmissionModalOpen;
+    setSubmissionModalOpen = _useDesignCasketConte.setSubmissionModalOpen,
+    editItem = _useDesignCasketConte.editItem,
+    setEditItem = _useDesignCasketConte.setEditItem;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "design-casket__tool-bar",
     children: [displayOptShowHandles == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -1136,6 +1143,7 @@ function DesignToolBar() {
         className: "design-casket__button",
         onClick: function onClick(e) {
           e.preventDefault();
+          // setEditItem([...data].find(n => n.__key === navActive)); 
           setEditImageModalOpen(true);
         },
         children: editButtonText
@@ -1233,6 +1241,7 @@ var RemoveIcon = function RemoveIcon() {
   });
 };
 function EditImage() {
+  var _editItem$fabricConfi, _editItem$fabricConfi3;
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_1__.useDesignCasketContext)(),
     editItem = _useDesignCasketConte.editItem,
     setEditItem = _useDesignCasketConte.setEditItem,
@@ -1244,12 +1253,21 @@ function EditImage() {
     _useState2 = _slicedToArray(_useState, 2),
     ready = _useState2[0],
     setReady = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((_editItem$fabricConfi = editItem.fabricConfig) === null || _editItem$fabricConfi === void 0 ? void 0 : _editItem$fabricConfi.textDefault),
+    _useState4 = _slicedToArray(_useState3, 2),
+    text = _useState4[0],
+    setText = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    modified = _useState6[0],
+    setModified = _useState6[1];
   var maskImage = editItem.maskImage,
     fabricConfig = editItem.fabricConfig;
   var canvasRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var fabricRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var fabricMaskObject = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var imageObject = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var TextObject = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fabricRef.current = initCanvas();
 
@@ -1257,6 +1275,7 @@ function EditImage() {
     if (editItem.save != null) {
       // load save data
       // console.log('load save data');
+      // console.log(editItem.save)
       fabricRef.current.clear();
       fabricRef.current.loadFromJSON(editItem.save, function () {
         fabricRef.current.renderAll();
@@ -1273,17 +1292,29 @@ function EditImage() {
             fabricMaskObject.current = _object;
             setReady(true);
             break;
+          case "TEXT_OBJECT":
+            console.log('TEXT_OBJECT', _object);
+            setText(_object.text);
+            TextObject.current = _object;
+            _object.on('modified', onUpdate__TEXTOBJECT);
+            break;
         }
       });
     } else {
       // load mask image 
       // console.log('load init mask image');
-      loadMaskImage();
+      loadMaskImage(function () {
+        var _editItem$fabricConfi2;
+        if (((_editItem$fabricConfi2 = editItem.fabricConfig) === null || _editItem$fabricConfi2 === void 0 ? void 0 : _editItem$fabricConfi2.textDesign) == true) setupTextObject();
+      });
     }
     fabricRef.current.on("object:modified", function (e) {
-      var jsonString = fabricRef.current.toJSON(['__LABEL', '__MASKWIDTH']); // JSON.stringify(fabricRef.current);
+      // console.log(fabricMaskObject.current, TextObject.current, imageObject.current);
+      if (!fabricMaskObject.current) return;
+      var exportMethods = ['__LABEL', '__MASKWIDTH', 'lockMovementY', 'hasControls', 'selectable'];
+      var jsonString = fabricRef.current.toJSON(exportMethods); // JSON.stringify(fabricRef.current);
       // let jsonString = JSON.stringify(fabricRef.current);
-
+      // console.log(jsonString);
       var __designImage = fabricRef.current.toDataURL({
         left: fabricMaskObject.current.left,
         top: fabricMaskObject.current.top,
@@ -1303,9 +1334,17 @@ function EditImage() {
       fabricRef.current = null;
       fabricMaskObject.current = null;
       imageObject.current = null;
+      TextObject.current = null;
       setReady(false);
     };
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // console.log(TextObject.current);
+    if (!TextObject.current) return;
+    TextObject.current.set('text', text);
+    fabricRef.current.renderAll();
+    fabricRef.current.fire('object:modified');
+  }, [text]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (ready) {
       // console.log(editItem.previewImage);
@@ -1318,10 +1357,11 @@ function EditImage() {
       width: 786,
       // backgroundColor: '#FAFAFA',
       selection: false,
-      renderOnAddRemove: true
+      renderOnAddRemove: true,
+      preserveObjectStacking: true
     });
   };
-  var loadMaskImage = function loadMaskImage() {
+  var loadMaskImage = function loadMaskImage(cb) {
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(maskImage, function (img) {
       img.set('__LABEL', 'MASK_IMAGE');
       fabricMaskObject.current = img;
@@ -1337,7 +1377,49 @@ function EditImage() {
 
       // console.log(img, img.getScaledWidth());
       setReady(true);
+      if (cb) {
+        cb();
+      }
     });
+  };
+  var onUpdate__TEXTOBJECT = function onUpdate__TEXTOBJECT(evt) {
+    // let modifiedObject = evt.target;
+    // console.log(modifiedObject);
+    // modifiedObject.set('__MASKWIDTH', modifiedObject.getScaledWidth()); 
+
+    fabricRef.current.fire('object:modified');
+  };
+  var setupTextObject = function setupTextObject() {
+    TextObject.current = new fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Text('Design Casket', {
+      fill: 'red',
+      fontSize: 18,
+      originX: "center",
+      originY: "center",
+      angle: -90,
+      fontFamily: "Arial",
+      textAlign: 'center',
+      width: 150,
+      lockMovementY: true,
+      hasControls: false
+    });
+    TextObject.current.set('__LABEL', 'TEXT_OBJECT');
+    TextObject.current.selectable = false;
+    TextObject.current.globalCompositeOperation = 'source-atop';
+    // TextObject.current.setControlVisible('mtr', false);
+
+    // Render the Text on Canvas
+    fabricRef.current.add(TextObject.current);
+
+    // Object center
+    fabricRef.current.centerObject(TextObject.current);
+    TextObject.current.set({
+      left: 232
+    });
+    fabricRef.current.renderAll();
+    TextObject.current.on('modified', onUpdate__TEXTOBJECT);
+
+    // trigger object:modified
+    fabricRef.current.fire('object:modified');
   };
   var onUpdate__MASKWIDTH = function onUpdate__MASKWIDTH(evt) {
     var modifiedObject = evt.target;
@@ -1361,7 +1443,11 @@ function EditImage() {
       fabricRef.current.add(img);
       fabricRef.current.centerObject(img); // Object center
       fabricRef.current.setActiveObject(img); // Active object
+      // fabricRef.current.moveTo(img, 3);
 
+      var _zindex = fabricRef.current.getObjects().indexOf(img);
+      // console.log(_zindex)
+      if (TextObject.current) fabricRef.current.moveTo(TextObject.current, _zindex + 1);
       fabricRef.current.renderAll();
 
       // trigger object:modified
@@ -1410,7 +1496,30 @@ function EditImage() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "__edit-tool-area",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [((_editItem$fabricConfi3 = editItem.fabricConfig) === null || _editItem$fabricConfi3 === void 0 ? void 0 : _editItem$fabricConfi3.textDesign) == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "__text-edit",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+          children: ["Add Text ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("sup", {
+            className: "__icon-tooltip",
+            id: "design-casket-text-edit-tooltip",
+            dangerouslySetInnerHTML: {
+              __html: __HELP_ICON
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_tooltip__WEBPACK_IMPORTED_MODULE_2__.Tooltip, {
+          anchorSelect: "#design-casket-text-edit-tooltip",
+          children: "Add your custom text"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
+            className: "__textarea-field",
+            placeholder: "Add your custom text here!",
+            value: text,
+            onChange: function onChange(e) {
+              return setText(e.target.value);
+            }
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "__select-image",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
           children: ["Select Image ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("sup", {
@@ -2012,7 +2121,9 @@ var CasketLayerConfig = [{
   classes: 'view-lid',
   classTransformView: 'casket-design-preview-show-lid',
   fabricConfig: {
-    scaleToWidth: 600
+    scaleToWidth: 600,
+    textDesign: true,
+    textDefault: 'Design Casket'
   }
 }, {
   __key: '65b13379-a8bc-49e1-a7a5-de149038571d',
@@ -2152,15 +2263,35 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
             return _context.abrupt("return");
           case 7:
             jQuery.get(design_data_url, function (designData) {
+              var mapBoolean = {
+                "true": true,
+                "false": false
+              };
+
               // Fix json data
               var _designData = designData.map(function (i) {
+                var _i$fabricConfig;
+                if ((i === null || i === void 0 || (_i$fabricConfig = i.fabricConfig) === null || _i$fabricConfig === void 0 ? void 0 : _i$fabricConfig.textDesign) != undefined) {
+                  i.fabricConfig.textDesign = mapBoolean[i.fabricConfig.textDesign];
+                }
+                if (!i.save.objects) return i;
                 i.save.objects = _toConsumableArray(i.save.objects).map(function (oItem) {
                   oItem.crossOrigin = null;
                   oItem.filters = [];
-                  oItem.flipX = false;
-                  oItem.flipY = false;
+                  // oItem.flipX = false;
+                  // oItem.flipY = false;
                   oItem.shadow = null;
-                  oItem.strokeUniform = false;
+                  // oItem.strokeUniform = false;
+
+                  var bl = ['linethrough', 'selectable', 'hasControls', 'lockMovementY', 'overline', 'strokeUniform', 'underline', 'visible', 'flipX', 'flipY'];
+                  bl.forEach(function (__) {
+                    if (oItem[__]) {
+                      oItem[__] = mapBoolean[oItem[__]];
+                    }
+                  });
+                  if (oItem.__LABEL == "TEXT_OBJECT") {
+                    oItem.styles = {};
+                  }
                   return oItem;
                 });
                 return i;

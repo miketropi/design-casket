@@ -4,13 +4,15 @@ import { copyToClipboard } from "../libs/helpers";
 export default function DesignToolBar() {
   const { 
     data, setData,
+    navActive,
     editButtonText, 
     setFaqsModalOpen, 
     displayOptShowHandles,
     showHandles, setShowHandles,
     setEditImageModalOpen,
     onSaveDesign, 
-    submissionModalOpen, setSubmissionModalOpen } = useDesignCasketContext();
+    submissionModalOpen, setSubmissionModalOpen,
+    editItem, setEditItem } = useDesignCasketContext();
   
   return <div className="design-casket__tool-bar">
     {
@@ -38,6 +40,7 @@ export default function DesignToolBar() {
     <div className="tool-box __edit-image">
       <button className="design-casket__button" onClick={ e => {
         e.preventDefault();
+        // setEditItem([...data].find(n => n.__key === navActive)); 
         setEditImageModalOpen(true);
       } }>{ editButtonText }</button>
     </div>
