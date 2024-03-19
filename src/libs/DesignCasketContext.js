@@ -118,10 +118,7 @@ const DebuggingCasketContext_Provider = ({ children }) => {
         i.save.objects = [...i.save.objects].map(oItem => {
           oItem.crossOrigin = null;
           oItem.filters = [];
-          // oItem.flipX = false;
-          // oItem.flipY = false;
           oItem.shadow = null;
-          // oItem.strokeUniform = false;
 
           let bl = [
             'linethrough', 

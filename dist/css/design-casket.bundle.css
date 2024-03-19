@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Poppins:wght@400;800&family=Taprom&display=swap);
 .design-casket {
   margin-bottom: 3em;
   position: relative;
@@ -476,6 +477,25 @@
   background: white;
   padding: 0.5em;
 }
+.dc-form input[type=color] {
+  overflow: hidden;
+  width: 40px;
+  height: 24px;
+  letter-spacing: 0;
+  line-height: 0;
+  background: no-repeat;
+  border: solid 1px #ddd;
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+.dc-form input[type=color]::-webkit-color-swatch {
+  border: none;
+  padding: 0;
+}
+.dc-form input[type=color]::-webkit-color-swatch-wrapper {
+  border: none;
+  padding: 0;
+}
 .dc-form__group-field {
   display: flex;
   flex-direction: column;
@@ -486,6 +506,11 @@
   padding: 0.5em 0;
   font-size: 0.9em;
   font-weight: bold;
+}
+.dc-form__group-field.__inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 .dc-form__bottom {
   display: flex;
@@ -640,6 +665,9 @@
 .design-casket__edit-image .__user-upload-images li.__user-image-item:hover span.__remove {
   opacity: 1;
 }
+.design-casket__edit-image .__text-edit {
+  position: relative;
+}
 .design-casket__edit-image .__text-edit .__textarea-field {
   border-radius: 1px;
   font-family: Arial;
@@ -652,4 +680,71 @@
 }
 .design-casket__edit-image .__text-edit .__textarea-field::placeholder {
   color: #707070;
+}
+.design-casket__edit-image .__text-edit .__text-config-control {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
+.design-casket__edit-image .__text-edit .__text-config-control h4 {
+  font-family: Arial;
+  font-size: 0.9em;
+  margin: 0 0 0.5em;
+  letter-spacing: 0;
+}
+.design-casket__edit-image .__text-edit .__text-config-control .__icon-toggle {
+  display: inline-block;
+  width: 20px;
+  cursor: pointer;
+  line-height: 0;
+}
+.design-casket__edit-image .__text-edit .__text-config-control .__t-config-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 250px;
+  padding: 1.3em;
+  background: white;
+  border-radius: 1px;
+  visibility: hidden;
+  opacity: 0;
+  box-shadow: 0 0 10px 0 rgba(1, 1, 1, 0.2);
+  transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+}
+.design-casket__edit-image .__text-edit .__text-config-control .__t-config-container.__open {
+  visibility: visible;
+  opacity: 1;
+}
+.design-casket__edit-image .__text-edit .__text-config-control .__t-config-container .__close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.9em;
+  line-height: 0;
+  color: black;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+}
+.design-casket__text-config {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.design-casket__text-config label {
+  font-weight: normal;
+  font-size: 0.8em;
+}
+.design-casket__text-config label select,
+.design-casket__text-config label input[type=text],
+.design-casket__text-config label input[type=number] {
+  padding: 0.6em 0.5em;
+  line-height: normal;
+  font-size: 0.9em;
+  border-color: #ddd;
+  border-radius: 1px;
 }

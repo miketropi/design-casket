@@ -3,12 +3,18 @@ import { useDesignCasketContext } from "../libs/DesignCasketContext";
 import { Tooltip } from 'react-tooltip';
 import { fabric } from "fabric";
 import UploadImage from "./UploadImage";
-import { uploadImageRequest } from '../libs/api'; 
+import TextConfig from "./TextConfig";
+import { uploadImageRequest } from '../libs/api';  
+const FontFaceObserver = require('fontfaceobserver');
 
 const __HELP_ICON = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7.92 9.234v.102a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-1.29.998-1.979 2.34-1.979 1.308 0 2.168.689 2.168 1.67 0 .928-.482 1.359-1.686 1.91l-.344.154C11.379 11.54 11 12.21 11 13.381v.119a.5.5 0 0 0 .5.5h.997a.499.499 0 0 0 .499-.499c0-.516.138-.723.55-.912l.345-.155c1.445-.654 2.529-1.514 2.529-3.39v-.103c0-1.978-1.72-3.441-4.164-3.441-2.478 0-4.336 1.428-4.336 3.734zm2.58 7.757c0 .867.659 1.509 1.491 1.509.85 0 1.509-.642 1.509-1.509 0-.867-.659-1.491-1.509-1.491-.832 0-1.491.624-1.491 1.491z" fill="#000000"/></svg>`;
 
 const RemoveIcon = () => {
   return <svg version="1.1" viewBox="0 0 1200 1200" > <path d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600 s600-268.629,600-600S931.371,0,600,0z M411.475,262.5L600,451.025L788.525,262.5L937.5,411.475L748.975,600L937.5,788.525 L788.525,937.5L600,748.975L411.475,937.5L262.5,788.525L451.025,600L262.5,411.475L411.475,262.5z"/> </svg>
+}
+
+const GearIcon = () => {
+  return <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fillRule="evenodd" clipRule="evenodd" d="M12.7848 0.449982C13.8239 0.449982 14.7167 1.16546 14.9122 2.15495L14.9991 2.59495C15.3408 4.32442 17.1859 5.35722 18.9016 4.7794L19.3383 4.63233C20.3199 4.30175 21.4054 4.69358 21.9249 5.56605L22.7097 6.88386C23.2293 7.75636 23.0365 8.86366 22.2504 9.52253L21.9008 9.81555C20.5267 10.9672 20.5267 13.0328 21.9008 14.1844L22.2504 14.4774C23.0365 15.1363 23.2293 16.2436 22.7097 17.1161L21.925 18.4339C21.4054 19.3064 20.3199 19.6982 19.3382 19.3676L18.9017 19.2205C17.1859 18.6426 15.3408 19.6754 14.9991 21.405L14.9122 21.845C14.7167 22.8345 13.8239 23.55 12.7848 23.55H11.2152C10.1761 23.55 9.28331 22.8345 9.08781 21.8451L9.00082 21.4048C8.65909 19.6754 6.81395 18.6426 5.09822 19.2205L4.66179 19.3675C3.68016 19.6982 2.59465 19.3063 2.07505 18.4338L1.2903 17.1161C0.770719 16.2436 0.963446 15.1363 1.74956 14.4774L2.09922 14.1844C3.47324 13.0327 3.47324 10.9672 2.09922 9.8156L1.74956 9.52254C0.963446 8.86366 0.77072 7.75638 1.2903 6.8839L2.07508 5.56608C2.59466 4.69359 3.68014 4.30176 4.66176 4.63236L5.09831 4.77939C6.81401 5.35722 8.65909 4.32449 9.00082 2.59506L9.0878 2.15487C9.28331 1.16542 10.176 0.449982 11.2152 0.449982H12.7848ZM12 15.3C13.8225 15.3 15.3 13.8225 15.3 12C15.3 10.1774 13.8225 8.69998 12 8.69998C10.1774 8.69998 8.69997 10.1774 8.69997 12C8.69997 13.8225 10.1774 15.3 12 15.3Z" fill="#000000"/> </svg>
 }
 
 export default function EditImage() {
@@ -23,6 +29,12 @@ export default function EditImage() {
   const [ text, setText ] = useState(editItem.fabricConfig?.textDefault);
   const [ modified, setModified ] = useState(false);
   const { maskImage, fabricConfig } = editItem;
+  const [ textEditShow, setTextEditShow ] = useState(false);
+  const [ textConfigData, setTextConfigData ] = useState({
+    fontFamily: '',
+    fontSize: '',
+    fill: '',
+  });
   
   const canvasRef = useRef(null);
   const fabricRef = useRef(null);
@@ -32,9 +44,8 @@ export default function EditImage() {
 
   useEffect(() => {
     fabricRef.current = initCanvas();
-
-    // console.log(editItem.save);
-    if(editItem.save != null) {
+    
+    if(editItem.save && editItem.save != null && editItem.save != '') { 
       // load save data
       // console.log('load save data');
       // console.log(editItem.save)
@@ -57,10 +68,23 @@ export default function EditImage() {
             break;
 
           case "TEXT_OBJECT":
-            console.log('TEXT_OBJECT', _object) 
+            // console.log('TEXT_OBJECT', _object) 
             setText(_object.text);
             TextObject.current = _object;
             _object.on('modified', onUpdate__TEXTOBJECT);
+            setTextConfigData({
+              ...textConfigData, 
+              fontFamily: TextObject.current.fontFamily,
+              fontSize: TextObject.current.fontSize,
+              fill: TextObject.current.fill,
+            });
+            // TextObject.current.set('fontFamily', '');
+            applyFont(TextObject.current.fontFamily, () => {
+              // console.log(TextObject.current.fontFamily)
+              TextObject.current.set('fontFamily', TextObject.current.fontFamily);
+              fabricRef.current.renderAll();
+              // fabricRef.current.fire('object:modified');
+            })
             break;
         }
       }); 
@@ -137,8 +161,9 @@ export default function EditImage() {
       fabricMaskObject.current = img;
 
       img.selectable = false;
-      if(fabricConfig.scaleToWidth) {
-        img.scaleToWidth(fabricConfig.scaleToWidth);
+      
+      if(typeof editItem?.fabricConfig?.scaleToWidth !== "undefined") {
+        img.scaleToWidth(editItem.fabricConfig.scaleToWidth);
       }
       
       fabricRef.current.add(img); 
@@ -166,7 +191,7 @@ export default function EditImage() {
 
   const setupTextObject = () => {
     TextObject.current = new fabric.Text('Design Casket', { 
-      fill: 'red',
+      fill: '#ff4d00',
       fontSize: 18,
       originX: "center",
       originY: "center",
@@ -192,6 +217,13 @@ export default function EditImage() {
 
     fabricRef.current.renderAll();
     TextObject.current.on('modified', onUpdate__TEXTOBJECT);
+
+    setTextConfigData({
+      ...textConfigData, 
+      fontfamily: TextObject.current.fontFamily,
+      fontSize: TextObject.current.fontSize,
+      fill: TextObject.current.fill,
+    });
 
     // trigger object:modified
     fabricRef.current.fire('object:modified');
@@ -254,6 +286,17 @@ export default function EditImage() {
     onSetImagePreview(url);
   }
 
+  const applyFont = (font, cb) => {
+    let customFont = new FontFaceObserver(font)
+    customFont.load()
+      .then(() => {
+        if(cb) { cb.call() }
+      }).catch((e) => {
+        console.log(e)
+        // alert('font loading failed ' + font);
+      });
+  }
+
   return <div className="design-casket__edit-image">
     
     <div className="__edit-area">
@@ -273,6 +316,32 @@ export default function EditImage() {
               placeholder="Add your custom text here!" 
               value={ text }
               onChange={ e => setText(e.target.value) }></textarea>
+          </div>
+          <div className="__text-config-control">
+            <span className="__icon-toggle" onClick={ e => setTextEditShow(true) }>
+              <GearIcon />
+            </span>
+            <div className={ ['__t-config-container', textEditShow ? '__open' : ''].join(' ') }>
+              {/* { JSON.stringify(textConfigData) } */}
+              <span className="__close" onClick={ e => { setTextEditShow(false) } } title="Close">✕</span>
+              <TextConfig 
+                cData={ textConfigData }
+                onChange={ (name, value) => {
+                  setTextConfigData({ ...textConfigData, [name]: value });
+                  if(name == 'fontFamily') {
+                    applyFont(value, () => {
+                      TextObject.current.set(name, value);
+                      fabricRef.current.renderAll();
+                      fabricRef.current.fire('object:modified');
+                    })
+                  } else {
+                    TextObject.current.set(name, value);
+                    fabricRef.current.renderAll();
+                    fabricRef.current.fire('object:modified');
+                  }
+                  
+                } } />
+            </div>
           </div>
         </div>
       }
