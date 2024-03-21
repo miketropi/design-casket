@@ -63,7 +63,8 @@ const CasketLayerConfig = [
   }
 ];
 
-const DebuggingCasketContext_Provider = ({ children }) => {
+const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
+  console.log(design, editmode);
   const [PID, setPID] = useState('');
   const [data, setData] = useState(CasketLayerConfig.map(({__key, name, image, maskImage, fabricConfig}) => {
     return {
@@ -90,6 +91,9 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   const [submissionLoading, setSubmissionLoading] = useState(false);
   const [submissionComplete, setSubmissionComplete] = useState(false); 
   const [userUploadImages, setUserUploadImages] = useState([]);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [shareUri, setShareUri] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   const inShowHandles = [
     '65b13379-a8bc-49e1-a7a5-de149038571d',   // left side key
@@ -225,9 +229,20 @@ const DebuggingCasketContext_Provider = ({ children }) => {
   }
 
   const onSaveDesign = async () => {
+    setIsSaving(true)
     const res = await saveDesign(data, '');
     setPID(res.PID);
+    setHasEdit(false);
+
+    setIsSaving(prevState => {
+      setIsSaving(false);
+    })
+
     return res;
+  }
+
+  const onUpdateHash = (_ID) => {
+    window.location.hash = `designcasket_${ _ID }`
   }
 
   const onSubmissionSubmit = async (e, formData) => {
@@ -248,9 +263,31 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     let _formData = {...formData, design: _designID }
     // console.log(e, formData, PID);
     const resSaveSubmission = await saveSubmission(_formData);
-    console.log(resSaveSubmission);
+    // console.log(resSaveSubmission);
     setSubmissionLoading(false);
-    setSubmissionComplete(true)
+    setSubmissionComplete(true);
+
+    onUpdateHash(_designID);
+  }
+
+  const shareUri_Func = async () => {
+    let _designID = PID;
+    if(_designID == '') {
+      // save new design
+      const res = await onSaveDesign();
+      _designID = res.PID
+    } else {
+      // had modify design
+      if(hadEdit == true) {
+        const res = await onSaveDesign();
+        _designID = res.PID
+      }
+    }
+
+    const { settings: { root_url_sharing } } = DC_PHP_DATA;
+    setShareUri(`${ root_url_sharing }#designcasket_${ _designID }`);
+    setShareModalOpen(true);
+    onUpdateHash(_designID);
   }
 
   const value = {
@@ -277,6 +314,10 @@ const DebuggingCasketContext_Provider = ({ children }) => {
     submissionComplete, setSubmissionComplete,
     userUploadImages,
     __addUserUploadImages, __removeUserUploadImageItem,
+    shareModalOpen, setShareModalOpen,
+    shareUri, setShareUri,
+    shareUri_Func,
+    isSaving, setIsSaving,
   };
   return <DesignCasketContext.Provider value={ value }>
     { children }

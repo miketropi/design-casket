@@ -6,10 +6,16 @@ import DesignCasketApp from '../components/DesignCasketApp';
   'use strict';
 
   $(() => {
-    const root = createRoot(document.getElementById('DESIGN_CASKET_ROOT'));
-    if(!root) return;
+    const rootEl = document.getElementById('DESIGN_CASKET_ROOT');
+    if(!rootEl) return;
 
-    root.render(<DebuggingCasketContext_Provider>
+    const root = createRoot(rootEl);
+    const { design, editmode } = rootEl.dataset;
+
+    root.render(
+      <DebuggingCasketContext_Provider 
+        design={ (design ? parseInt(design) : '') } 
+        editmode={ parseInt(editmode) } >
         <DesignCasketApp />
       </DebuggingCasketContext_Provider>);
   })

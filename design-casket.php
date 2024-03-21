@@ -34,7 +34,9 @@
   /**
    * Admin
    */
-  require(DC_DIR . '/inc/admin/cpt-register.php');
+  require(DC_DIR . '/inc/admin/admin.php');
+  require(DC_DIR . '/inc/admin/admin-hooks.php');
+  require(DC_DIR . '/inc/admin/cpt-register.php'); 
 }
 
 {

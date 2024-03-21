@@ -1,0 +1,21 @@
+.design-casket {
+
+  &__share {
+
+    .__socials {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 20px;
+      margin-bottom: 2em;
+
+      .__s-itme {
+        line-height: 0;
+        cursor: pointer;
+
+        > svg {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

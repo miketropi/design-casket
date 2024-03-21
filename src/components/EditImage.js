@@ -46,20 +46,15 @@ export default function EditImage() {
     fabricRef.current = initCanvas();
     
     if(editItem.save && editItem.save != null && editItem.save != '') { 
-      // load save data
-      // console.log('load save data');
-      // console.log(editItem.save)
       fabricRef.current.clear();
       fabricRef.current.loadFromJSON(editItem.save, () => {
         fabricRef.current.renderAll();  
       }, (_, _object) => {
         switch(_object.__LABEL) {
           case "PREVIEW_IMAGE":
-            // console.log(_object);
             imageObject.current = _object;
             _object.scaleToWidth(_object.__MASKWIDTH);
             _object.on('modified', onUpdate__MASKWIDTH);
-            // fabricRef.current.setActiveObject(_object);
             break;
           
           case "MASK_IMAGE":
@@ -68,7 +63,6 @@ export default function EditImage() {
             break;
 
           case "TEXT_OBJECT":
-            // console.log('TEXT_OBJECT', _object) 
             setText(_object.text);
             TextObject.current = _object;
             _object.on('modified', onUpdate__TEXTOBJECT);
@@ -78,12 +72,9 @@ export default function EditImage() {
               fontSize: TextObject.current.fontSize,
               fill: TextObject.current.fill,
             });
-            // TextObject.current.set('fontFamily', '');
             applyFont(TextObject.current.fontFamily, () => {
-              // console.log(TextObject.current.fontFamily)
               TextObject.current.set('fontFamily', TextObject.current.fontFamily);
               fabricRef.current.renderAll();
-              // fabricRef.current.fire('object:modified');
             })
             break;
         }
@@ -287,13 +278,20 @@ export default function EditImage() {
   }
 
   const applyFont = (font, cb) => {
+    let fontDefault = ['Arial'];
+
+    if(fontDefault.includes(font)) {
+      if(cb) { cb.call() }
+      return;
+    }
+
     let customFont = new FontFaceObserver(font)
-    customFont.load()
+    customFont
+      .load()
       .then(() => {
         if(cb) { cb.call() }
       }).catch((e) => {
         console.log(e)
-        // alert('font loading failed ' + font);
       });
   }
 

@@ -748,3 +748,17 @@
   border-color: #ddd;
   border-radius: 1px;
 }
+
+.design-casket__share .__socials {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  margin-bottom: 2em;
+}
+.design-casket__share .__socials .__s-itme {
+  line-height: 0;
+  cursor: pointer;
+}
+.design-casket__share .__socials .__s-itme > svg {
+  width: 100%;
+}

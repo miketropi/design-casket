@@ -6,6 +6,8 @@ import Modal from "./Modal";
 import EditImage from "./EditImage";
 import SubmissionForm from "./SubmissionForm";
 import ThanksMessage from "./ThanksMessage";
+import Share from "./Share";
+import { copyToClipboard } from "../libs/helpers";
 
 export default function DesignCasketApp() {
   const { 
@@ -21,7 +23,9 @@ export default function DesignCasketApp() {
     onSubmissionSubmit,
     submissionLoading, setSubmissionLoading,
     submissionComplete, setSubmissionComplete,
-    editItem, setEditItem } = useDesignCasketContext();
+    editItem, setEditItem,
+    shareModalOpen, setShareModalOpen,
+    shareUri } = useDesignCasketContext();
   
   const ButtonSaveEdit = () => {
     return <button onClick={ e => {
@@ -29,6 +33,15 @@ export default function DesignCasketApp() {
       onApplyDesign();
     } } className="design-casket__button button-secondary">
       Save
+    </button>
+  }
+
+  const ButtonCopyShareURL = () => {
+    return <button onClick={ e => {
+      e.preventDefault();
+      copyToClipboard(shareUri);
+    } } className="design-casket__button button-secondary">
+      Copy URL
     </button>
   }
 
@@ -91,6 +104,20 @@ export default function DesignCasketApp() {
             }
           })(submissionComplete)
         }
+    </Modal>
+
+    <Modal
+      className="design-casket__modal-share"
+      title={ `Share` }
+      open={ shareModalOpen }
+      onClose={ e => {
+        setShareModalOpen(false);
+        // setEditItem(null);
+      } }
+      buttons={ [
+        <ButtonCopyShareURL />
+      ] }>
+      <Share ShareUrl={ shareUri } />
     </Modal>
     {/* { JSON.stringify(data) }  */}
   </div>

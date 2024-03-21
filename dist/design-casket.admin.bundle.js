@@ -1,4 +1,4 @@
-(self["webpackChunkdesign_casket"] = self["webpackChunkdesign_casket"] || []).push([["/design-casket.bundle"],{
+(self["webpackChunkdesign_casket"] = self["webpackChunkdesign_casket"] || []).push([["/design-casket.admin.bundle"],{
 
 /***/ "./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js":
 /*!*******************************************************************************!*\
@@ -747,6 +747,25 @@ var unitlessKeys = {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (unitlessKeys);
 
+
+/***/ }),
+
+/***/ "./src/admin.js":
+/*!**********************!*\
+  !*** ./src/admin.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_design_casket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/design-casket */ "./src/modules/design-casket.js");
+/**
+ * JS
+ */
+
+(function (w, $) {
+  'use strict';
+})(window, jQuery);
 
 /***/ }),
 
@@ -3073,25 +3092,6 @@ var copyToClipboard = function copyToClipboard(text) {
 
 /***/ }),
 
-/***/ "./src/main.js":
-/*!*********************!*\
-  !*** ./src/main.js ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_design_casket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/design-casket */ "./src/modules/design-casket.js");
-/**
- * JS
- */
-
-(function (w, $) {
-  'use strict';
-})(window, jQuery);
-
-/***/ }),
-
 /***/ "./src/modules/design-casket.js":
 /*!**************************************!*\
   !*** ./src/modules/design-casket.js ***!
@@ -5402,19 +5402,6 @@ var toString = {}.toString;
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
-
-
-/***/ }),
-
-/***/ "./src/scss/main.scss":
-/*!****************************!*\
-  !*** ./src/scss/main.scss ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
 
 
 /***/ }),
@@ -10452,7 +10439,7 @@ const h="react-tooltip-core-styles",w="react-tooltip-base-styles",b={core:!1,bas
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["design-casket-vendor","css/design-casket.bundle"], () => (__webpack_exec__("./src/main.js"), __webpack_exec__("./src/scss/main.scss")));
+/******/ __webpack_require__.O(0, ["design-casket-vendor"], () => (__webpack_exec__("./src/admin.js")));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);

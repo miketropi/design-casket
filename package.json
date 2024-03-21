@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.10",
     "react-portal": "^4.2.2",
-    "react-tooltip": "^5.26.3"
+    "react-tooltip": "^5.26.3",
+    "sharer.js": "^0.5.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
