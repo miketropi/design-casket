@@ -12,6 +12,7 @@ import { copyToClipboard } from "../libs/helpers";
 export default function DesignCasketApp() {
   const { 
     version, 
+    _editMode,
     data,
     faqsModalOpen, setFaqsModalOpen, 
     showHandles, 
@@ -54,8 +55,9 @@ export default function DesignCasketApp() {
 
   // casket-design-show-handles
   return <div className={ ['design-casket design-casket-container'] }>
-    <DesignToolBar />
-
+    {
+      (_editMode == true) && <DesignToolBar />
+    }
     <div className={ [
       'design-casket__viewer-area', 
       ((showHandles == true && displayOptShowHandles == true) ? 'casket-design-show-handles' : '')].join(' ') }>

@@ -64,8 +64,9 @@ const CasketLayerConfig = [
 ];
 
 const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
-  console.log(design, editmode);
-  const [PID, setPID] = useState('');
+  // console.log(design, editmode);
+  const [PID, setPID] = useState(design ? design : '');
+  const [_editMode, set_editMode] = useState(editmode);
   const [data, setData] = useState(CasketLayerConfig.map(({__key, name, image, maskImage, fabricConfig}) => {
     return {
       __key, 
@@ -292,6 +293,7 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
 
   const value = {
     version: '1.0.1',
+    _editMode,
     image_collection: DC_PHP_DATA.settings.image_collection,
     NavViews: CasketLayerConfig,
     currentView,

@@ -979,6 +979,7 @@ __webpack_require__.r(__webpack_exports__);
 function DesignCasketApp() {
   var _useDesignCasketConte = (0,_libs_DesignCasketContext__WEBPACK_IMPORTED_MODULE_0__.useDesignCasketContext)(),
     version = _useDesignCasketConte.version,
+    _editMode = _useDesignCasketConte._editMode,
     data = _useDesignCasketConte.data,
     faqsModalOpen = _useDesignCasketConte.faqsModalOpen,
     setFaqsModalOpen = _useDesignCasketConte.setFaqsModalOpen,
@@ -1035,7 +1036,7 @@ function DesignCasketApp() {
   // casket-design-show-handles
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
     className: ['design-casket design-casket-container'],
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_DesignToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    children: [_editMode == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_DesignToolBar__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: ['design-casket__viewer-area', showHandles == true && displayOptShowHandles == true ? 'casket-design-show-handles' : ''].join(' '),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_NavViewer__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Casket3D__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -2507,12 +2508,16 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   var children = _ref.children,
     design = _ref.design,
     editmode = _ref.editmode;
-  console.log(design, editmode);
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  // console.log(design, editmode);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(design ? design : ''),
     _useState2 = _slicedToArray(_useState, 2),
     PID = _useState2[0],
     setPID = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(CasketLayerConfig.map(function (_ref2) {
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(editmode),
+    _useState4 = _slicedToArray(_useState3, 2),
+    _editMode = _useState4[0],
+    set_editMode = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(CasketLayerConfig.map(function (_ref2) {
       var __key = _ref2.__key,
         name = _ref2.name,
         image = _ref2.image,
@@ -2529,73 +2534,73 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
         save: null
       };
     })),
-    _useState4 = _slicedToArray(_useState3, 2),
-    data = _useState4[0],
-    setData = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data[0]),
     _useState6 = _slicedToArray(_useState5, 2),
-    editItem = _useState6[0],
-    setEditItem = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('968ccc56-e5b8-4af3-a68f-e65c3cb02fb9'),
+    data = _useState6[0],
+    setData = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data[0]),
     _useState8 = _slicedToArray(_useState7, 2),
-    navActive = _useState8[0],
-    setNavActive = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('casket-design-preview-show-lid'),
+    editItem = _useState8[0],
+    setEditItem = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('968ccc56-e5b8-4af3-a68f-e65c3cb02fb9'),
     _useState10 = _slicedToArray(_useState9, 2),
-    currentView = _useState10[0],
-    setCurrentView = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Edit Lid Image'),
+    navActive = _useState10[0],
+    setNavActive = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('casket-design-preview-show-lid'),
     _useState12 = _slicedToArray(_useState11, 2),
-    editButtonText = _useState12[0],
-    setEditButtonText = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    currentView = _useState12[0],
+    setCurrentView = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Edit Lid Image'),
     _useState14 = _slicedToArray(_useState13, 2),
-    faqsModalOpen = _useState14[0],
-    setFaqsModalOpen = _useState14[1];
+    editButtonText = _useState14[0],
+    setEditButtonText = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    showHandles = _useState16[0],
-    setShowHandles = _useState16[1];
+    faqsModalOpen = _useState16[0],
+    setFaqsModalOpen = _useState16[1];
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState18 = _slicedToArray(_useState17, 2),
-    displayOptShowHandles = _useState18[0],
-    setDisplayOptShowHandles = _useState18[1];
+    showHandles = _useState18[0],
+    setShowHandles = _useState18[1];
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState20 = _slicedToArray(_useState19, 2),
-    editImageModalOpen = _useState20[0],
-    setEditImageModalOpen = _useState20[1];
+    displayOptShowHandles = _useState20[0],
+    setDisplayOptShowHandles = _useState20[1];
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    submissionModalOpen = _useState22[0],
-    setSubmissionModalOpen = _useState22[1];
+    editImageModalOpen = _useState22[0],
+    setEditImageModalOpen = _useState22[1];
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState24 = _slicedToArray(_useState23, 2),
-    hadEdit = _useState24[0],
-    setHasEdit = _useState24[1];
+    submissionModalOpen = _useState24[0],
+    setSubmissionModalOpen = _useState24[1];
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState26 = _slicedToArray(_useState25, 2),
-    submissionLoading = _useState26[0],
-    setSubmissionLoading = _useState26[1];
+    hadEdit = _useState26[0],
+    setHasEdit = _useState26[1];
   var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState28 = _slicedToArray(_useState27, 2),
-    submissionComplete = _useState28[0],
-    setSubmissionComplete = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    submissionLoading = _useState28[0],
+    setSubmissionLoading = _useState28[1];
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState30 = _slicedToArray(_useState29, 2),
-    userUploadImages = _useState30[0],
-    setUserUploadImages = _useState30[1];
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    submissionComplete = _useState30[0],
+    setSubmissionComplete = _useState30[1];
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState32 = _slicedToArray(_useState31, 2),
-    shareModalOpen = _useState32[0],
-    setShareModalOpen = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    userUploadImages = _useState32[0],
+    setUserUploadImages = _useState32[1];
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState34 = _slicedToArray(_useState33, 2),
-    shareUri = _useState34[0],
-    setShareUri = _useState34[1];
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    shareModalOpen = _useState34[0],
+    setShareModalOpen = _useState34[1];
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState36 = _slicedToArray(_useState35, 2),
-    isSaving = _useState36[0],
-    setIsSaving = _useState36[1];
+    shareUri = _useState36[0],
+    setShareUri = _useState36[1];
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState38 = _slicedToArray(_useState37, 2),
+    isSaving = _useState38[0],
+    setIsSaving = _useState38[1];
   var inShowHandles = ['65b13379-a8bc-49e1-a7a5-de149038571d',
   // left side key
   '529e804a-e512-49ff-80c7-463f9a6c247c' // right side key
@@ -2851,6 +2856,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   }();
   var value = {
     version: '1.0.1',
+    _editMode: _editMode,
     image_collection: DC_PHP_DATA.settings.image_collection,
     NavViews: CasketLayerConfig,
     currentView: currentView,
