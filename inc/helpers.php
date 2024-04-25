@@ -22,7 +22,8 @@ function dc_save_design($data, $postID = '') {
 
   if($postID) {
     // update
-    $path = dc_save_design_json_to_file(json_encode($data, JSON_NUMERIC_CHECK), $postID);
+    // $path = dc_save_design_json_to_file(json_encode($data, JSON_NUMERIC_CHECK), $postID);
+    $path = dc_save_design_json_to_file($data, $postID);
     update_post_meta($postID, '__DESIGN_CASKET_JSON_PATH', $path);
     return $postID; 
   }
@@ -35,7 +36,8 @@ function dc_save_design($data, $postID = '') {
     'post_status' => 'publish',
   ]);
   
-  $path = dc_save_design_json_to_file(json_encode($data, JSON_NUMERIC_CHECK), $newPostID);
+  // $path = dc_save_design_json_to_file(json_encode($data, JSON_NUMERIC_CHECK), $newPostID);
+  $path = dc_save_design_json_to_file($data, $newPostID);
   update_post_meta($newPostID, '__DESIGN_CASKET_JSON_PATH', $path);
   return $newPostID;
 }

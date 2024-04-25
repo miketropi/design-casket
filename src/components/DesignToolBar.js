@@ -1,5 +1,6 @@
 import { useDesignCasketContext } from "../libs/DesignCasketContext";
 import { copyToClipboard } from "../libs/helpers";
+import copy from 'copy-to-clipboard';
 
 export default function DesignToolBar() {
   const { 
@@ -50,6 +51,9 @@ export default function DesignToolBar() {
     <div className="tool-box __submit-design">
       <button className="design-casket__button button-secondary" onClick={ e => {
         e.preventDefault();
+        // console.log(data);
+        // copy(JSON.stringify(data));
+        // return;
         setSubmissionModalOpen(true) 
       } }>Submit Design</button>
     </div>

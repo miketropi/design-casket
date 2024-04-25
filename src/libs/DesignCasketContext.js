@@ -111,6 +111,10 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
         "false": false,
       };
 
+      setData(designData);
+      setEditItem(designData[0]);
+      
+      return;
       // Fix json data
       let _designData = designData.map(i => {
 
@@ -118,7 +122,7 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
           i.fabricConfig.textDesign = mapBoolean[i.fabricConfig.textDesign];
         }
 
-        if(!i.save.objects) return i;
+        if(!i.save?.objects) return i;
 
         i.save.objects = [...i.save.objects].map(oItem => {
           oItem.crossOrigin = null;
@@ -223,7 +227,8 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
     const __data = [...data];
     const found = data.findIndex(n => n.__key == editItem.__key);
     __data[found] = editItem;
-
+    
+    console.log(found, editItem);
     setData(__data);
     setEditImageModalOpen(false); // close modal edit
     setHasEdit(true);

@@ -5,8 +5,22 @@
 
 function dc_ajax_save_design() {
   // wp_send_json($_POST); return;
+  $json = file_get_contents("php://input"); // json string
+  $data = json_decode($json, true);
+  $postID = $data['postID'];
+  $designJSON = $data['designJSON'];
+  
+  $postID = dc_save_design($designJSON, $postID);
+  wp_send_json([
+    'success' => true,
+    'message' => __('Saved design successfully!'),
+    'PID' => $postID,
+  ]);
+  die();
+
   $postID = $_POST['data']['postID'];
   $designJSON = $_POST['data']['designJSON'];
+  // die($designJSON);return;
   $postID = dc_save_design($designJSON, $postID);
   wp_send_json([
     'success' => true,

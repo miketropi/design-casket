@@ -16,12 +16,12 @@ export default function Casket3D() {
   }, []);
 
   useEffect(() => {
-    if(data[1].previewImage == '') return;
-
+    if(data[1].designImage == '') return;
+    
     const __data = [...data];
     const [maskWidth, maskHeight] = [848, 129];
     fabricCropRef.current.setDimensions({ width: maskWidth, height: maskHeight });
-      
+    
     fabric.Image.fromURL(data[1].designImage, img => {
       img.scaleToWidth(maskWidth);
       fabricCropRef.current.add(img); 
@@ -46,7 +46,7 @@ export default function Casket3D() {
   }, [data[1].designImage]); 
 
   useEffect(() => {
-    if(data[2].previewImage == '') return;
+    if(data[2].designImage == '') return;
 
     const __data = [...data];
     const [maskWidth, maskHeight] = [848, 129];

@@ -42,8 +42,48 @@ export default function EditImage() {
   const imageObject = useRef(null);
   const TextObject = useRef(null);
 
+  const addCustomControl = () => {
+    var deleteIcon = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBVcGxvYWRlZCB0bzogU1ZHIFJlcG8sIHd3dy5zdmdyZXBvLmNvbSwgR2VuZXJhdG9yOiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4NCjxzdmcgZmlsbD0iIzAwMDAwMCIgaGVpZ2h0PSI4MDBweCIgd2lkdGg9IjgwMHB4IiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiANCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik0wLDB2NTEyaDUxMlYwSDB6IE0zMjcuMTE1LDM2NS45MDRMMjU2LDI5NC43ODlsLTcxLjExNSw3MS4xMTVsLTM4Ljc4OS0zOC43ODlMMjE3LjIxMSwyNTZsLTcxLjExNS03MS4xMTVsMzguNzg5LTM4Ljc4OQ0KCQkJTDI1NiwyMTcuMjExbDcxLjExNS03MS4xMTVsMzguNzg5LDM4Ljc4OUwyOTQuNzg5LDI1Nmw3MS4xMTUsNzEuMTE1TDMyNy4xMTUsMzY1LjkwNHoiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4=";
+
+    fabric.Object.prototype.controls.deleteControl = new fabric.Control({
+      x: 0.5,
+      y: -0.5,
+      offsetY: -24,
+      offsetX: 0,
+      cursorStyle: 'pointer',
+      mouseUpHandler: deleteObject,
+      render: renderIcon(deleteIcon),
+      cornerSize: 24
+    });
+
+    function deleteObject(eventData, transform) {
+      let r = confirm("Are you sure you want to delete?");
+      if(!r) return;
+
+      var target = transform.target;
+      fabricRef.current.remove(target);
+      fabricRef.current.renderAll();
+      fabricRef.current.fire('object:modified');
+    }
+
+    function renderIcon(icon) {
+      var iconImg = document.createElement('img');
+      iconImg.src = icon;
+
+      return function (ctx, left, top, styleOverride, fabricObject) {
+        var size = this.cornerSize;
+        ctx.save();
+        ctx.translate(left, top);
+        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
+        ctx.drawImage(iconImg, -size/2, -size/2, size, size);
+        ctx.restore();
+      }
+    }
+  }
+
   useEffect(() => {
     fabricRef.current = initCanvas();
+    addCustomControl();
     
     if(editItem.save && editItem.save != null && editItem.save != '') { 
       fabricRef.current.clear();
@@ -295,10 +335,37 @@ export default function EditImage() {
       });
   }
 
+  const onAddImage = (image_url) => {
+    
+    fabric.Image.fromURL(image_url, (img) => { 
+      const maskWidth = fabricMaskObject.current.getScaledWidth();
+      img.set('__LABEL', 'IMAGES'); // set tag
+      img.set('__MASKWIDTH', maskWidth);
+
+      img.scaleToWidth(maskWidth);
+      img.globalCompositeOperation = 'source-atop'; 
+      img.on('modified', onUpdate__MASKWIDTH);
+
+      fabricRef.current.add(img); 
+      fabricRef.current.centerObject(img);    // Object center
+      fabricRef.current.setActiveObject(img)  // Active object
+
+      let _zindex = fabricRef.current.getObjects().indexOf(img);
+      if(TextObject.current)
+        fabricRef.current.moveTo(TextObject.current, _zindex + 1);
+
+      fabricRef.current.renderAll();   
+      
+      // trigger object:modified
+      fabricRef.current.fire('object:modified');
+    });
+  }
+
   return <div className="design-casket__edit-image">
     
     <div className="__edit-area">
       <canvas ref={ canvasRef }></canvas>
+      {/* <img src={ editItem?.designImage } alt="" /> */}
     </div>
     <div className="__edit-tool-area">
       {
@@ -352,7 +419,8 @@ export default function EditImage() {
           { image_collection.map((item, __i_index) => {
             return <li className="image-item" key={ __i_index } onClick={ e => {
               e.preventDefault();
-              onSetImagePreview(item.image);
+              // onSetImagePreview(item.image);
+              onAddImage(item.image) 
             } }>
               <span>
                 <img src={ item.thumbnail } alt="#" />

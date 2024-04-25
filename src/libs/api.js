@@ -1,5 +1,6 @@
+const { ajax_url } = DC_PHP_DATA;
+
 const __request = async (action, data, type = 'POST') => {
-  const { ajax_url } = DC_PHP_DATA;
   return await jQuery.ajax({
     type,
     url: ajax_url,
@@ -11,9 +12,23 @@ const __request = async (action, data, type = 'POST') => {
 }
 
 const saveDesign = async (data, postID) => {
+
+  const response = await fetch(`${ ajax_url }?action=dc_ajax_save_design`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      postID,
+      designJSON: JSON.stringify(data),
+    })
+  });
+
+  return response.json(); 
+
   return await __request('dc_ajax_save_design', {
     postID, 
-    designJSON: data,
+    designJSON: JSON.stringify(data),
   })
 }
 
