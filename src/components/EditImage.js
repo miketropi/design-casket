@@ -60,10 +60,18 @@ export default function EditImage() {
       let r = confirm("Are you sure you want to delete?");
       if(!r) return;
 
-      var target = transform.target;
+      let target = transform.target;
+      let __editItem = { ...editItem }
+      let foundIndex = __editItem.useImages.findIndex(url => url == target.__IMAGE_URL);
+
       fabricRef.current.remove(target);
       fabricRef.current.renderAll();
       fabricRef.current.fire('object:modified');
+
+      if(foundIndex != -1) {
+        __editItem.useImages.splice(foundIndex, 1);
+        setEditItem(__editItem);
+      }
     }
 
     function renderIcon(icon) {
@@ -132,7 +140,7 @@ export default function EditImage() {
     fabricRef.current.on("object:modified", function (e) {
       // console.log(fabricMaskObject.current, TextObject.current, imageObject.current);
       if(! fabricMaskObject.current) return;
-      let exportMethods = ['__LABEL', '__MASKWIDTH', 'lockMovementY', 'hasControls', 'selectable'];
+      let exportMethods = ['__LABEL', '__MASKWIDTH', '__IMAGE_URL', 'lockMovementY', 'hasControls', 'selectable', 'scaleX', 'scaleY'];
       let jsonString = fabricRef.current.toJSON(exportMethods); // JSON.stringify(fabricRef.current);
       // let jsonString = JSON.stringify(fabricRef.current);
       // console.log(jsonString);
@@ -336,11 +344,16 @@ export default function EditImage() {
   }
 
   const onAddImage = (image_url) => {
+    let __image_url = `${ image_url }?__key=${ Math.random().toString(36) }`;
+    let __editItem = { ...editItem };
+    __editItem.useImages.push(__image_url);
+    setEditItem(__editItem);
     
     fabric.Image.fromURL(image_url, (img) => { 
       const maskWidth = fabricMaskObject.current.getScaledWidth();
       img.set('__LABEL', 'IMAGES'); // set tag
       img.set('__MASKWIDTH', maskWidth);
+      img.set('__IMAGE_URL', __image_url);
 
       img.scaleToWidth(maskWidth);
       img.globalCompositeOperation = 'source-atop'; 
@@ -355,7 +368,7 @@ export default function EditImage() {
         fabricRef.current.moveTo(TextObject.current, _zindex + 1);
 
       fabricRef.current.renderAll();   
-      
+      // console.log(img);
       // trigger object:modified
       fabricRef.current.fire('object:modified');
     });
@@ -366,6 +379,7 @@ export default function EditImage() {
     <div className="__edit-area">
       <canvas ref={ canvasRef }></canvas>
       {/* <img src={ editItem?.designImage } alt="" /> */}
+      {/* { JSON.stringify(editItem.useImages) } */}
     </div>
     <div className="__edit-tool-area">
       {
@@ -445,7 +459,8 @@ export default function EditImage() {
                 return <li className="__user-image-item" key={ __index_url } >
                   <span onClick={ e => {
                     e.preventDefault();
-                    onSetImagePreview(url);
+                    // onSetImagePreview(url);
+                    onAddImage(url) 
                   } } className="__image" style={{ background: `url(${ url }) no-repeat center center / cover, #eee` }}></span>
                   <span className="__remove" onClick={ e => {
                     e.preventDefault(); 

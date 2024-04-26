@@ -1364,9 +1364,17 @@ function EditImage() {
       var r = confirm("Are you sure you want to delete?");
       if (!r) return;
       var target = transform.target;
+      var __editItem = _objectSpread({}, editItem);
+      var foundIndex = __editItem.useImages.findIndex(function (url) {
+        return url == target.__IMAGE_URL;
+      });
       fabricRef.current.remove(target);
       fabricRef.current.renderAll();
       fabricRef.current.fire('object:modified');
+      if (foundIndex != -1) {
+        __editItem.useImages.splice(foundIndex, 1);
+        setEditItem(__editItem);
+      }
     }
     function renderIcon(icon) {
       var iconImg = document.createElement('img');
@@ -1426,7 +1434,7 @@ function EditImage() {
     fabricRef.current.on("object:modified", function (e) {
       // console.log(fabricMaskObject.current, TextObject.current, imageObject.current);
       if (!fabricMaskObject.current) return;
-      var exportMethods = ['__LABEL', '__MASKWIDTH', 'lockMovementY', 'hasControls', 'selectable'];
+      var exportMethods = ['__LABEL', '__MASKWIDTH', '__IMAGE_URL', 'lockMovementY', 'hasControls', 'selectable', 'scaleX', 'scaleY'];
       var jsonString = fabricRef.current.toJSON(exportMethods); // JSON.stringify(fabricRef.current);
       // let jsonString = JSON.stringify(fabricRef.current);
       // console.log(jsonString);
@@ -1626,10 +1634,15 @@ function EditImage() {
     });
   };
   var onAddImage = function onAddImage(image_url) {
+    var __image_url = "".concat(image_url, "?__key=").concat(Math.random().toString(36));
+    var __editItem = _objectSpread({}, editItem);
+    __editItem.useImages.push(__image_url);
+    setEditItem(__editItem);
     fabric__WEBPACK_IMPORTED_MODULE_3__.fabric.Image.fromURL(image_url, function (img) {
       var maskWidth = fabricMaskObject.current.getScaledWidth();
       img.set('__LABEL', 'IMAGES'); // set tag
       img.set('__MASKWIDTH', maskWidth);
+      img.set('__IMAGE_URL', __image_url);
       img.scaleToWidth(maskWidth);
       img.globalCompositeOperation = 'source-atop';
       img.on('modified', onUpdate__MASKWIDTH);
@@ -1640,7 +1653,7 @@ function EditImage() {
       var _zindex = fabricRef.current.getObjects().indexOf(img);
       if (TextObject.current) fabricRef.current.moveTo(TextObject.current, _zindex + 1);
       fabricRef.current.renderAll();
-
+      // console.log(img);
       // trigger object:modified
       fabricRef.current.fire('object:modified');
     });
@@ -1766,7 +1779,8 @@ function EditImage() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                 onClick: function onClick(e) {
                   e.preventDefault();
-                  onSetImagePreview(url);
+                  // onSetImagePreview(url);
+                  onAddImage(url);
                 },
                 className: "__image",
                 style: {
@@ -2609,6 +2623,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
         maskImage: maskImage,
         icon: image,
         previewImage: '',
+        useImages: [],
         designImage: '',
         fabricConfig: fabricConfig,
         save: null
@@ -2808,7 +2823,8 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
       return n.__key == editItem.__key;
     });
     __data[found] = editItem;
-    console.log(found, editItem);
+
+    // console.log(found, editItem);
     setData(__data);
     setEditImageModalOpen(false); // close modal edit
     setHasEdit(true);

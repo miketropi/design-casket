@@ -74,6 +74,7 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
       maskImage,
       icon: image, 
       previewImage: '', 
+      useImages: [],
       designImage: '',
       fabricConfig,
       save: null,
@@ -228,7 +229,7 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
     const found = data.findIndex(n => n.__key == editItem.__key);
     __data[found] = editItem;
     
-    console.log(found, editItem);
+    // console.log(found, editItem);
     setData(__data);
     setEditImageModalOpen(false); // close modal edit
     setHasEdit(true);
