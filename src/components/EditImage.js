@@ -424,25 +424,28 @@ export default function EditImage() {
           </div>
         </div>
       }
-      <div className="__select-image">
-        <h5>Select Image <sup className="__icon-tooltip" id="design-casket-select-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
-        <Tooltip anchorSelect="#design-casket-select-image-tooltip">
-          Pick an image from our collection
-        </Tooltip>
-        <ul>
-          { image_collection.map((item, __i_index) => {
-            return <li className="image-item" key={ __i_index } onClick={ e => {
-              e.preventDefault();
-              // onSetImagePreview(item.image);
-              onAddImage(item.image) 
-            } }>
-              <span>
-                <img src={ item.thumbnail } alt="#" />
-              </span>
-            </li>
-          }) }
-        </ul>
-      </div>
+      {
+        DC_PHP_DATA.settings.enable_image_collection == true && 
+        <div className="__select-image">
+          <h5>Select Image <sup className="__icon-tooltip" id="design-casket-select-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
+          <Tooltip anchorSelect="#design-casket-select-image-tooltip">
+            Pick an image from our collection
+          </Tooltip>
+          <ul>
+            { image_collection.map((item, __i_index) => {
+              return <li className="image-item" key={ __i_index } onClick={ e => {
+                e.preventDefault();
+                // onSetImagePreview(item.image);
+                onAddImage(item.image) 
+              } }>
+                <span>
+                  <img src={ item.thumbnail } alt="#" />
+                </span>
+              </li>
+            }) }
+          </ul>
+        </div>
+      }
 
       <div className="__upload-image">
         <h5>Upload image <sup className="__icon-tooltip" id="design-casket-upload-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>

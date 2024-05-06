@@ -627,3 +627,44 @@ $angle-2: 17deg;
   pointer-events: none;
   opacity: .8;
 }
+
+.design_casket__share-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background: rgba(1,1,1,.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+
+  .design_casket__share-modal-content {
+    width: 650px;
+    max-width: calc(100% - 60px);
+    background: white;
+    padding: 2em;
+  }
+
+  .design_casket__share-modal-close {
+    font-size: 1.5em;
+    float: right;
+    padding: .3em;
+    color: black;
+    cursor: pointer;
+  }
+}
+
+body.__show_design_casket__share-modal {
+
+  .design_casket__share-modal {
+    visibility: visible;
+    opacity: 1;
+  }
+}

@@ -293,7 +293,17 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
 
     const { settings: { root_url_sharing } } = DC_PHP_DATA;
     setShareUri(`${ root_url_sharing }#designcasket_${ _designID }`);
-    setShareModalOpen(true);
+    // setShareModalOpen(true);
+    
+let text = `Hello,
+Please see the coffin design link below. I created this
+design with the Lifestyle Coffins Design it Yourself
+module.
+
+${ root_url_sharing }#designcasket_${ _designID }`;
+    document.querySelector('textarea#input_6_5').value = text;
+    document.body.classList.add('__show_design_casket__share-modal');
+
     onUpdateHash(_designID);
   }
 

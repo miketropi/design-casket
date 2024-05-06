@@ -12,9 +12,11 @@ function dc_enqueue_scripts() {
   wp_localize_script('design-casket-js', 'DC_PHP_DATA', [
     'ajax_url' => admin_url('admin-ajax.php'), 
     'settings' => [
+      'enable_image_collection' => get_field('enable_image_collection', 'option'),
       'image_collection' => dc_get_image_collection(),
       'instructions_content' => get_field('instructions_content', 'option'),
       'root_url_sharing' => get_field('root_url_sharing', 'option'),
+      'share_content' => get_field('share_content', 'option'),
     ],
     'lang' => [],
     '_COOKIE' => $_COOKIE,
@@ -30,12 +32,14 @@ function dc_admin_enqueue_scripts() {
   wp_enqueue_script('design-casket-admin-js', DC_URI . '/dist/design-casket.admin.bundle.js', ['jquery'], DC_VERSION, true);
 
   wp_localize_script('design-casket-admin-js', 'DC_PHP_DATA', [
-    'ajax_url' => admin_url('admin-ajax.php'), 
+    'ajax_url' => admin_url('admin-ajax.php'),  
     'settings' => [
+      'enable_image_collection' => get_field('enable_image_collection', 'option'),
       'image_collection' => dc_get_image_collection(),
       'instructions_content' => get_field('instructions_content', 'option'),
       'root_url_sharing' => get_field('root_url_sharing', 'option'),
-    ],
+      'share_content' => get_field('share_content', 'option'),
+    ], 
     'lang' => [],
     '_COOKIE' => $_COOKIE,
   ]);

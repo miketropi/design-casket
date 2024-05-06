@@ -1706,7 +1706,7 @@ function EditImage() {
             })]
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), DC_PHP_DATA.settings.enable_image_collection == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "__select-image",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h5", {
           children: ["Select Image ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("sup", {
@@ -2893,7 +2893,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   }();
   var shareUri_Func = /*#__PURE__*/function () {
     var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      var _designID, res, _res2, _DC_PHP_DATA, root_url_sharing;
+      var _designID, res, _res2, _DC_PHP_DATA, root_url_sharing, text;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) switch (_context4.prev = _context4.next) {
           case 0:
@@ -2922,9 +2922,12 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
           case 13:
             _DC_PHP_DATA = DC_PHP_DATA, root_url_sharing = _DC_PHP_DATA.settings.root_url_sharing;
             setShareUri("".concat(root_url_sharing, "#designcasket_").concat(_designID));
-            setShareModalOpen(true);
+            // setShareModalOpen(true);
+            text = "Hello,\nPlease see the coffin design link below. I created this\ndesign with the Lifestyle Coffins Design it Yourself\nmodule.\n\n".concat(root_url_sharing, "#designcasket_").concat(_designID);
+            document.querySelector('textarea#input_6_5').value = text;
+            document.body.classList.add('__show_design_casket__share-modal');
             onUpdateHash(_designID);
-          case 17:
+          case 19:
           case "end":
             return _context4.stop();
         }

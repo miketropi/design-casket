@@ -19,6 +19,13 @@ function dc_design_casket_func( $atts ) {
     data-editmode="<?php echo $atts['edit_mode'] ?>">
     <!-- JS Render -->
   </div> <!-- #DESIGN_CASKET_ROOT -->
+
+  <div class="design_casket__share-modal">
+    <div class="design_casket__share-modal-content">
+      <span class="design_casket__share-modal-close" onClick="document.body.classList.remove('__show_design_casket__share-modal')">✕</span>
+      <?php echo do_shortcode(get_field('share_content', 'option')); ?>
+    </div>
+  </div> <!-- .design_casket__share-modal -->
   <?php
   return ob_get_clean();
 }
