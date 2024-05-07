@@ -1740,7 +1740,7 @@ function EditImage() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "__upload-image",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h5", {
-          children: ["Upload image ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("sup", {
+          children: ["Add image ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("sup", {
             className: "__icon-tooltip",
             id: "design-casket-upload-image-tooltip",
             dangerouslySetInnerHTML: {
@@ -1752,34 +1752,6 @@ function EditImage() {
           children: "Upload an image from your device"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_UploadImage__WEBPACK_IMPORTED_MODULE_4__["default"], {
           onhandleChange: onUploadImage
-        }), userUploadImages.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
-          className: "__user-upload-images",
-          children: userUploadImages.map(function (url, __index_url) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("li", {
-              className: "__user-image-item",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                onClick: function onClick(e) {
-                  e.preventDefault();
-                  // onSetImagePreview(url);
-                  onAddImage(url);
-                },
-                className: "__image",
-                style: {
-                  background: "url(".concat(url, ") no-repeat center center / cover, #eee")
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                className: "__remove",
-                onClick: function onClick(e) {
-                  e.preventDefault();
-                  var r = confirm('Are you sure you want to remove?');
-                  if (r) {
-                    __removeUserUploadImageItem(__index_url);
-                  }
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(RemoveIcon, {})
-              })]
-            }, __index_url);
-          })
         })]
       })]
     })]

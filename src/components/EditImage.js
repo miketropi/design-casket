@@ -448,13 +448,13 @@ export default function EditImage() {
       }
 
       <div className="__upload-image">
-        <h5>Upload image <sup className="__icon-tooltip" id="design-casket-upload-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
+        <h5>Add image <sup className="__icon-tooltip" id="design-casket-upload-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
         <Tooltip anchorSelect="#design-casket-upload-image-tooltip">
           Upload an image from your device
         </Tooltip>
         <UploadImage onhandleChange={ onUploadImage } />
         {/* { JSON.stringify(userUploadImages) } */}
-        {
+        {/* {
           userUploadImages.length > 0 && 
           <ul className="__user-upload-images">
             {
@@ -477,7 +477,7 @@ export default function EditImage() {
               })
             }
           </ul>
-        }
+        } */}
       </div>
     </div> 
   </div>
