@@ -322,7 +322,8 @@ export default function EditImage() {
     const { url } = upload;
     // console.log(res); 
     __addUserUploadImages(url)
-    onSetImagePreview(url);
+    // onSetImagePreview(url);
+    onAddImage(url) 
   }
 
   const applyFont = (font, cb) => {
@@ -454,7 +455,7 @@ export default function EditImage() {
         </Tooltip>
         <UploadImage onhandleChange={ onUploadImage } />
         {/* { JSON.stringify(userUploadImages) } */}
-        {/* {
+        {
           userUploadImages.length > 0 && 
           <ul className="__user-upload-images">
             {
@@ -463,7 +464,7 @@ export default function EditImage() {
                   <span onClick={ e => {
                     e.preventDefault();
                     // onSetImagePreview(url);
-                    onAddImage(url) 
+                    // onAddImage(url) 
                   } } className="__image" style={{ background: `url(${ url }) no-repeat center center / cover, #eee` }}></span>
                   <span className="__remove" onClick={ e => {
                     e.preventDefault(); 
@@ -477,7 +478,7 @@ export default function EditImage() {
               })
             }
           </ul>
-        } */}
+        }
       </div>
     </div> 
   </div>
