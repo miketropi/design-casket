@@ -46,8 +46,9 @@
 .design-casket__nav-viewer ul li label {
   display: block;
   margin-bottom: 1em;
-  color: #55369C;
-  font-size: 1.1em;
+  color: #717171;
+  font-size: 14px;
+  font-weight: bold;
 }
 .design-casket__nav-viewer ul li img {
   width: 70%;
@@ -71,42 +72,40 @@
 }
 .design-casket__tool-bar .tool-box.__show-handle label {
   font-weight: bold;
-  font-size: 0.8em;
+  font-size: 14px;
   display: flex;
   gap: 0.5em;
   color: black;
 }
 .design-casket__button {
-  background: #55369C !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 0 !important;
+  background: white;
+  color: black !important;
+  border: solid 2px black;
+  border-radius: 50px !important;
   display: flex !important;
   align-items: center;
   gap: 0.5em;
-  font-weight: bold;
-  font-size: 0.8em !important;
+  font-weight: normal;
+  font-size: 12px !important;
   height: 40px;
-  padding: 0 1em !important;
+  padding: 4px 1.5em !important;
+  cursor: pointer !important;
 }
 .design-casket__button svg {
   width: 22px;
 }
 .design-casket__button:hover, .design-casket__button:focus {
   opacity: 0.8;
-  background: #55369C !important;
+  background: black !important;
+  color: white !important;
 }
 .design-casket__button.button-secondary {
-  background: #FF6600 !important;
+  background: #f79603 !important;
+  border-color: #f79603;
+  color: white !important;
 }
 .design-casket__button.button-secondary:hover {
-  background: #FF6600 !important;
-}
-.design-casket__button.button-gray {
-  background: gray !important;
-}
-.design-casket__button.button-gray:hover {
-  background: gray !important;
+  background: #f79603 !important;
 }
 .design-casket__button.__btn-loading {
   pointer-events: none;

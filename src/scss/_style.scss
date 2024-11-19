@@ -48,8 +48,9 @@
         label {
           display: block;
           margin-bottom: 1em;
-          color: $accent-color;
-          font-size: 1.1em;
+          color: #717171;
+          font-size: 14px;
+          font-weight: bold;
         }
 
         img {
@@ -81,7 +82,7 @@
         
         label {
           font-weight: bold;
-          font-size: .8em;
+          font-size: 14px;
           display: flex;
           gap: .5em;
           color: black;
@@ -91,17 +92,21 @@
   }
 
   &__button {
-    background: $accent-color !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 0 !important;
+    // background: $accent-color !important;
+    background: white;
+    // color: white !important;
+    color: black !important;
+    // border: none !important;
+    border: solid 2px black;
+    border-radius: 50px !important;
     display: flex !important;
     align-items: center;
     gap: .5em;
-    font-weight: bold;
-    font-size: .8em !important;
+    font-weight: normal;
+    font-size: 12px !important;
     height: 40px;
-    padding: 0 1em !important;
+    padding: 4px 1.5em !important;
+    cursor: pointer !important;
 
     svg {
       width: 22px;
@@ -110,24 +115,27 @@
     &:hover,
     &:focus {
       opacity: .8;
-      background: $accent-color !important;
+      background: black !important;
+      color: white !important;
     }
 
     &.button-secondary {
-      background: $secondary-color !important;
+      background: $accent-color !important;
+      border-color: $accent-color;
+      color: white !important;
 
       &:hover {
-        background: $secondary-color !important;
+        background: $accent-color !important;
       }
     }
 
-    &.button-gray {
-      background: gray !important;
+    // &.button-gray {
+    //   background: gray !important;
 
-      &:hover {
-        background: gray !important;
-      }
-    }
+    //   &:hover {
+    //     background: gray !important;
+    //   }
+    // }
 
     &.__btn-loading {
       pointer-events: none;
@@ -295,7 +303,7 @@ $angle-2: 17deg;
   transition: opacity .3s ease;
 
   .casket-design-show-handles & {
-      opacity: 1;
+    opacity: 1;
   }
 }
 

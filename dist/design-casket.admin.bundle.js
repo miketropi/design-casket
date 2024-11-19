@@ -1173,30 +1173,9 @@ function DesignToolBar() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "tool-box __faqs",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        className: "design-casket__button",
-        onClick: function onClick(e) {
-          e.preventDefault();
-          setFaqsModalOpen(true);
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("svg", {
-          viewBox: "0 0 24 24",
-          fill: "none",
-          xmlns: "http://www.w3.org/2000/svg",
-          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-            d: "M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16",
-            stroke: "#FFF",
-            strokeWidth: "2",
-            strokeLinecap: "round",
-            strokeLinejoin: "round"
-          }), " "]
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "tool-box __edit-image",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        className: "design-casket__button",
+        className: "design-casket__button button-secondary",
         onClick: function onClick(e) {
           e.preventDefault();
           setEditImageModalOpen(true);
@@ -1206,7 +1185,7 @@ function DesignToolBar() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "tool-box __submit-design",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        className: "design-casket__button button-secondary",
+        className: "design-casket__button",
         onClick: function onClick(e) {
           e.preventDefault();
           // console.log(data);
@@ -1218,20 +1197,23 @@ function DesignToolBar() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "tool-box __share-design",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-        className: "design-casket__button button-gray",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "design-casket__button",
         onClick: function onClick(e) {
           e.preventDefault();
           shareUri_Func();
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
-          fill: "#FFF",
-          viewBox: "0 -32 576 576",
-          xmlns: "http://www.w3.org/2000/svg",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
-            d: "M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z"
-          })
-        }), isSaving == true ? 'Please wait...' : 'Share this Design']
+        children: isSaving == true ? 'Please wait...' : 'Share this Design'
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "tool-box __faqs",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        className: "design-casket__button",
+        onClick: function onClick(e) {
+          e.preventDefault();
+          setFaqsModalOpen(true);
+        },
+        children: "Help"
       })
     })]
   });
@@ -5325,7 +5307,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bottom_icon.png?13fc85a1ffa13fd8f7bdbad94dc6f6f4");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bottom_icon.png?c4af135924b4134516832f388fdef43c");
 
 /***/ }),
 
@@ -5340,7 +5322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/left_icon.png?b5e4dd9fbc04bdb5aede0eaae536bf14");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/left_icon.png?033e96c25d4e23b14a25c5dd073379f5");
 
 /***/ }),
 
@@ -5355,7 +5337,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/lid_icon.png?07813fd3ea28e07a607a9ca3ede09518");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/lid_icon.png?178b17a988952711a633fd3859cf9a72");
 
 /***/ }),
 
@@ -5370,7 +5352,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/right_icon.png?9c7bb11e7801652213ed5973ed2ad42a");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/right_icon.png?9c79aca464d86b155c5c9fb4fdbde8bf");
 
 /***/ }),
 
@@ -5385,7 +5367,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/top_icon.png?b6a5f0e42f6e1248c9bbda6e57a9b40b");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/top_icon.png?c241b89eb4c94f1654658ba95b4a4c3d");
 
 /***/ }),
 
