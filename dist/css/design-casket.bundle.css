@@ -565,6 +565,14 @@ body.__show_design_casket__share-modal .design_casket__share-modal {
   opacity: 1;
 }
 
+.design_casket__share-modal .gform_required_legend {
+  text-transform: capitalize;
+}
+
+.design_casket__share-modal .gform-footer .button {
+  background: #f79603 !important;
+}
+
 .design-casket__modal {
   position: fixed;
   left: 0;

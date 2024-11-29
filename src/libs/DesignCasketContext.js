@@ -168,7 +168,9 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
     let [tag, PID] = window.location.hash.split('_');
     if('#designcasket' != tag) return;
 
+
     setPID(PID);
+    set_editMode(false);
   }
 
   const __loadUserUploadImages = () => {
@@ -296,11 +298,12 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
     // setShareModalOpen(true);
     
 let text = `Hello,
-Please see the coffin design link below. I created this
-design with the Lifestyle Coffins Design it Yourself
-module.
+Please click the link below to view the proposed coffin design.
 
-${ root_url_sharing }#designcasket_${ _designID }`;
+<a href="${ root_url_sharing }#designcasket_${ _designID }">${ root_url_sharing }#designcasket_${ _designID }</a>
+
+Thank you.`;
+
     document.querySelector('textarea#input_6_5').value = text;
     document.body.classList.add('__show_design_casket__share-modal');
 

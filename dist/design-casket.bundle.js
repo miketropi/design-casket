@@ -2735,6 +2735,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
       PID = _window$location$hash2[1];
     if ('#designcasket' != tag) return;
     setPID(PID);
+    set_editMode(false);
   };
   var __loadUserUploadImages = function __loadUserUploadImages() {
     var __DS_USER_UPLOAD_IMAGES = localStorage.getItem("__DS_USER_UPLOAD_IMAGES");
@@ -2906,7 +2907,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
             _DC_PHP_DATA = DC_PHP_DATA, root_url_sharing = _DC_PHP_DATA.settings.root_url_sharing;
             setShareUri("".concat(root_url_sharing, "#designcasket_").concat(_designID));
             // setShareModalOpen(true);
-            text = "Hello,\nPlease see the coffin design link below. I created this\ndesign with the Lifestyle Coffins Design it Yourself\nmodule.\n\n".concat(root_url_sharing, "#designcasket_").concat(_designID);
+            text = "Hello,\nPlease click the link below to view the proposed coffin design.\n\n<a href=\"".concat(root_url_sharing, "#designcasket_").concat(_designID, "\">").concat(root_url_sharing, "#designcasket_").concat(_designID, "</a>\n\nThank you.");
             document.querySelector('textarea#input_6_5').value = text;
             document.body.classList.add('__show_design_casket__share-modal');
             onUpdateHash(_designID);

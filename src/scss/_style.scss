@@ -676,3 +676,21 @@ body.__show_design_casket__share-modal {
     opacity: 1;
   }
 }
+
+.design_casket__share-modal .gform_required_legend {
+  text-transform: capitalize;
+}
+
+.design_casket__share-modal {
+
+  .gform-body {
+
+  }
+
+  .gform-footer {
+
+    .button {
+      background: $accent-color !important;
+    }
+  }
+} 
