@@ -8,6 +8,7 @@ function dc_send_mail_admin_after_submission_successful ($submissionData, $postI
   $root_site = get_field('root_url_sharing', 'option');
   $headers = ['Content-Type: text/html; charset=UTF-8'];
   $url_design = $root_site . "/#designcasket_" . $postID;
+
   ob_start();
   ?>
   <strong>Hello,</strong> 
@@ -15,7 +16,8 @@ function dc_send_mail_admin_after_submission_successful ($submissionData, $postI
   <a href='<?php echo $url_design; ?>'><?php echo $url_design; ?></a>
   <p>Thank you.</p>  
   <?php
-  $message = ob_get_contents();
+  $message = ob_get_clean();
+
   wp_mail($to, 'Proposed Coffin Design', $message, $headers);
 } 
 
