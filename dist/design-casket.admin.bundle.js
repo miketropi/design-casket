@@ -2896,7 +2896,7 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
   }();
   var shareUri_Func = /*#__PURE__*/function () {
     var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      var _designID, res, _res2, _DC_PHP_DATA, root_url_sharing, text;
+      var _designID, res, _res2, _DC_PHP_DATA, root_url_sharing, text, designUrlField, contentField;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) switch (_context4.prev = _context4.next) {
           case 0:
@@ -2926,11 +2926,16 @@ var DebuggingCasketContext_Provider = function DebuggingCasketContext_Provider(_
             _DC_PHP_DATA = DC_PHP_DATA, root_url_sharing = _DC_PHP_DATA.settings.root_url_sharing;
             setShareUri("".concat(root_url_sharing, "#designcasket_").concat(_designID));
             // setShareModalOpen(true);
-            text = "Hello,\nPlease click the link below to view the proposed coffin design.\n\n<a href=\"".concat(root_url_sharing, "#designcasket_").concat(_designID, "\">").concat(root_url_sharing, "#designcasket_").concat(_designID, "</a>\n\nThank you.");
-            document.querySelector('textarea#input_6_5').value = text;
+            text = "Hello,\n    Please click the link below to view the proposed coffin design.\n    Thank you!";
+            designUrlField = document.querySelector('.__field-design-url input');
+            contentField = document.querySelector('.__field-edit-content-here textarea');
+            designUrlField.value = "".concat(root_url_sharing, "#designcasket_").concat(_designID);
+            // contentField.value = text;
+            // contentField.dispatchEvent(new Event("input", { bubbles: true }));  
+
             document.body.classList.add('__show_design_casket__share-modal');
             onUpdateHash(_designID);
-          case 19:
+          case 21:
           case "end":
             return _context4.stop();
         }

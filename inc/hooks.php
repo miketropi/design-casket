@@ -6,13 +6,16 @@
 function dc_send_mail_admin_after_submission_successful ($submissionData, $postID) {
   $to = get_field('email_admin', 'option');
   $root_site = get_field('root_url_sharing', 'option');
-  $headers = array('Content-Type: text/html; charset=UTF-8');
-  $message = "Hello,
-Please click the link below to view the proposed coffin design.
-
-<a href='". $root_site ."/#designcasket_". $postID ."'>". $root_site ."/#designcasket_". $postID ."</a>
-
-Thank you.";
+  $headers = ['Content-Type: text/html; charset=UTF-8'];
+  $url_design = $root_site . "/#designcasket_" . $postID;
+  ob_start();
+  ?>
+  <strong>Hello,</strong> 
+  <p>Please click the link below to view the proposed coffin design.</p>
+  <a href='<?php echo $url_design; ?>'><?php echo $url_design; ?></a>
+  <p>Thank you.</p>  
+  <?php
+  $message = ob_get_contents();
   wp_mail($to, 'Proposed Coffin Design', $message, $headers);
 } 
 

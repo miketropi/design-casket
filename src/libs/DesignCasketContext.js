@@ -296,15 +296,18 @@ const DebuggingCasketContext_Provider = ({ children, design, editmode }) => {
     const { settings: { root_url_sharing } } = DC_PHP_DATA;
     setShareUri(`${ root_url_sharing }#designcasket_${ _designID }`);
     // setShareModalOpen(true);
+        
+    let text = `Hello,
+    Please click the link below to view the proposed coffin design.
+    Thank you!`;
+
+    let designUrlField = document.querySelector('.__field-design-url input');
+    let contentField = document.querySelector('.__field-edit-content-here textarea');
     
-let text = `Hello,
-Please click the link below to view the proposed coffin design.
+    designUrlField.value = `${ root_url_sharing }#designcasket_${ _designID }`;
+    // contentField.value = text;
+    // contentField.dispatchEvent(new Event("input", { bubbles: true }));  
 
-<a href="${ root_url_sharing }#designcasket_${ _designID }">${ root_url_sharing }#designcasket_${ _designID }</a>
-
-Thank you.`;
-
-    document.querySelector('textarea#input_6_5').value = text;
     document.body.classList.add('__show_design_casket__share-modal');
 
     onUpdateHash(_designID);
