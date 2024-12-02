@@ -7,12 +7,15 @@ function dc_send_mail_admin_after_submission_successful ($submissionData, $postI
   $to = get_field('email_admin', 'option');
   $root_site = get_field('root_url_sharing', 'option');
   $headers = ['Content-Type: text/html; charset=UTF-8'];
-  // $url_design = $root_site . "/#designcasket_" . $postID;
 
-  $url_design = get_edit_post_link($postID);
+  $postDesignID = get_field('design', $postID);
+  $url_design = $root_site . "/#designcasket_" . $postDesignID;
+  
+  // $url_design = get_edit_post_link($postID);
 
   ob_start();
   ?>
+  <?php print_r($postDesign) ?>
   <strong>Hello,</strong> 
   <p>Please click the link below to view the proposed coffin design.</p>
   <a href='<?php echo $url_design; ?>'><?php echo $url_design; ?></a>
