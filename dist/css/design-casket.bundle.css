@@ -573,6 +573,55 @@ body.__show_design_casket__share-modal .design_casket__share-modal {
   background: #f79603 !important;
 }
 
+.dc-modal-design {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(1, 1, 1, 0.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+}
+.dc-modal-design__inner {
+  width: 1200px;
+  max-width: calc(100% - 30px);
+  padding: 20px;
+  background: white;
+  border-radius: 1px;
+  box-shadow: 0 0 20px 0 rgba(1, 1, 1, 0.2);
+  position: relative;
+}
+.dc-modal-design__inner .design-casket-container {
+  margin-bottom: 0;
+}
+.dc-modal-design__close {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  right: -19px;
+  top: -19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  background: black;
+  color: white;
+  border-radius: 38px;
+  cursor: pointer;
+}
+
+body.dc-modal-design__open .dc-modal-design {
+  opacity: 1;
+  visibility: visible;
+}
+
 .design-casket__modal {
   position: fixed;
   left: 0;

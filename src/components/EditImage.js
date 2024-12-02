@@ -425,7 +425,7 @@ export default function EditImage() {
           </div>
         </div>
       }
-      {
+      {/* {
         DC_PHP_DATA.settings.enable_image_collection == true && 
         <div className="__select-image">
           <h5>Select Image <sup className="__icon-tooltip" id="design-casket-select-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
@@ -446,7 +446,7 @@ export default function EditImage() {
             }) }
           </ul>
         </div>
-      }
+      } */}
 
       <div className="__upload-image">
         <h5>Add image <sup className="__icon-tooltip" id="design-casket-upload-image-tooltip" dangerouslySetInnerHTML={{__html: __HELP_ICON}}></sup></h5>
@@ -455,7 +455,7 @@ export default function EditImage() {
         </Tooltip>
         <UploadImage onhandleChange={ onUploadImage } />
         {/* { JSON.stringify(userUploadImages) } */}
-        {
+        {/* {
           userUploadImages.length > 0 && 
           <ul className="__user-upload-images">
             {
@@ -478,7 +478,7 @@ export default function EditImage() {
               })
             }
           </ul>
-        }
+        } */}
       </div>
     </div> 
   </div>

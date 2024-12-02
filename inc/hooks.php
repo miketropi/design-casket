@@ -22,3 +22,54 @@ function dc_send_mail_admin_after_submission_successful ($submissionData, $postI
 } 
 
 add_action( 'DC:SAVE_SUBMISSION_SUCCESSFUL_HOOK', 'dc_send_mail_admin_after_submission_successful', 20, 2 );
+
+function dc_modal_design_mode() {
+  $modal_mode = get_field('dc_modal_design_mode', 'option');
+  if($modal_mode != true) return;
+  ?>
+  <div class="dc-modal-design">
+    <div class="dc-modal-design__inner">
+      <div class="dc-modal-design__head">
+        <span 
+          class="dc-modal-design__close" 
+          title="close"
+          onclick="javascript: document.body.classList.remove('dc-modal-design__open')">✕</span>
+      </div>
+      <div class="dc-modal-design__body">
+        <?php echo do_shortcode( '[design_casket]' ) ?>
+      </div>
+    </div>
+  </div>
+  <script>
+    ((w) => {
+      'use strict';
+
+      const modalModeHandle = () => {
+        let design_casket = document.querySelectorAll('#DESIGN_CASKET_ROOT');
+        let length = design_casket.length;
+
+        if(length != 1) return;
+        if(!window.location.hash) return;
+
+        const [prefix, id] = window.location.hash.split('_');
+        
+        if(prefix == '#designcasket') {
+          document.body.classList.add('dc-modal-design__open')
+        }
+      }
+
+      w.addEventListener('load', function() {
+        modalModeHandle();
+
+        document.querySelector('a.dc-modal-design-trigger, li.dc-modal-design-trigger a').addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.classList.add('dc-modal-design__open')
+        })
+      })
+
+    })(window)
+  </script>
+  <?php
+}
+
+add_action( 'wp_footer', 'dc_modal_design_mode' );

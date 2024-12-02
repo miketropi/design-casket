@@ -1708,37 +1708,6 @@ function EditImage() {
             })]
           })]
         })]
-      }), DC_PHP_DATA.settings.enable_image_collection == true && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "__select-image",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h5", {
-          children: ["Select Image ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("sup", {
-            className: "__icon-tooltip",
-            id: "design-casket-select-image-tooltip",
-            dangerouslySetInnerHTML: {
-              __html: __HELP_ICON
-            }
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_tooltip__WEBPACK_IMPORTED_MODULE_2__.Tooltip, {
-          anchorSelect: "#design-casket-select-image-tooltip",
-          children: "Pick an image from our collection"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
-          children: image_collection.map(function (item, __i_index) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
-              className: "image-item",
-              onClick: function onClick(e) {
-                e.preventDefault();
-                // onSetImagePreview(item.image);
-                onAddImage(item.image);
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                  src: item.thumbnail,
-                  alt: "#"
-                })
-              })
-            }, __i_index);
-          })
-        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "__upload-image",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h5", {
@@ -1754,34 +1723,6 @@ function EditImage() {
           children: "Upload an image from your device"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_UploadImage__WEBPACK_IMPORTED_MODULE_4__["default"], {
           onhandleChange: onUploadImage
-        }), userUploadImages.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
-          className: "__user-upload-images",
-          children: userUploadImages.map(function (url, __index_url) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("li", {
-              className: "__user-image-item",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                onClick: function onClick(e) {
-                  e.preventDefault();
-                  // onSetImagePreview(url);
-                  // onAddImage(url) 
-                },
-                className: "__image",
-                style: {
-                  background: "url(".concat(url, ") no-repeat center center / cover, #eee")
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                className: "__remove",
-                onClick: function onClick(e) {
-                  e.preventDefault();
-                  var r = confirm('Are you sure you want to remove?');
-                  if (r) {
-                    __removeUserUploadImageItem(__index_url);
-                  }
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(RemoveIcon, {})
-              })]
-            }, __index_url);
-          })
         })]
       })]
     })]
